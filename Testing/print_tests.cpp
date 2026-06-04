@@ -9,17 +9,18 @@ void print_network(Network N)
 
     for (map<const string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
-        cout << "Class: " << it->second.class_ID << " ////////////////////////////////////////////////////////////" << endl;
+        cout << "////////////////////////////////////////////////////////////" << endl;
+        cout << "Class: " << it->second.class_ID << endl;
         for (map<const string,Compound>::iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
         {
             cout << "  Compound: " << it2->second.InChI << endl;
             for (map<const string,System>::iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
             {
-                cout << "    " << it3->second.system_ID << "  |  " << it3->second.concentration << "  |  rank in class: " << it3->second.insertion_rank_in_class << "  |  rank in network: " << it3->second.insertion_rank_in_network << endl;
+                cout << "    " << it3->second.system_ID << "  |  rank in class: " << it3->second.insertion_rank_in_class << "  |  rank in network: " << it3->second.insertion_rank_in_network << endl;
             }
         }
     }
-    cout << endl;
+    cout << endl << "////////////////////////////////////////////////////////////" << endl;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -42,7 +43,7 @@ void print_class_matrix(Class C)
 void print_hyperedges(Network N)
 {
     cout << endl << "Hyperedges:" << endl;
-    cout << "------------------------------------------------------------" << endl;
+    cout << "----------------------------------------------------------------------" << endl;
     for (set<Hyperedge>::iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
     {
         cout << "Reactants: ";
@@ -57,7 +58,7 @@ void print_hyperedges(Network N)
         }
         cout << "| Barriers: " << it->barrier.first << ", " << it->barrier.second;
 
-        cout << endl << "------------------------------------------------------------" << endl;
+        cout << endl << "----------------------------------------------------------------------" << endl;
     }
 
 

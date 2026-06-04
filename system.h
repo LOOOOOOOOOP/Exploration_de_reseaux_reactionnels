@@ -3,17 +3,19 @@
 
 #include <string>
 #include <set>
+#include <vector>
 
 
 class System
 {
     public:
     const std::string system_ID;    // InChI - [numéro du conformère]
-    bool explored;
+    bool explored = false;
 
     const std::multiset<std::string> atoms;
     const size_t n_electrons;
-    std::string concentration; // fonction de concentration obtenu lors de la dernière simulation
+    std::vector<std::pair<float,float>> concentration;  // fonction de concentration obtenu lors de la dernière simulation.
+                                                        // (i+1)ième paire: t_i, c(t_i)
 
     size_t insertion_rank_in_class;  // rang d'insertion dans la classe, à partir de 0. Détermine l'indice dans la matrice d'adjacence
     size_t insertion_rank_in_network;  // rang d'insertion dans le réseau, à partir de 0.
