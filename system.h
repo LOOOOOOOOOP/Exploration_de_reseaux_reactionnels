@@ -9,7 +9,9 @@
 class System
 {
     public:
-    const std::string system_ID;    // InChI - [numéro du conformère]
+    std::string system_ID;      // À l'instantiation, system_ID = InChI.
+                                // Lorsque le système est ajouté au réseau (et donc à un composé),
+                                // le ID est modifié pour devenir InChI - [numéro du conformère]
     bool explored = false;
 
     const std::multiset<std::string> atoms;

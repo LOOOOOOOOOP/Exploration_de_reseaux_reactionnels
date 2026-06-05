@@ -37,45 +37,61 @@ int main()
     Network reaction_network(initial_systems);
 
     // Récupération de T
-    Class& C = reaction_network.classes.begin()->second;
-    Compound& D = C.class_compounds.begin()->second;
-    System& T_in_network = D.compound_systems.begin()->second;
-
-    // Récupération de U
-    System& U_in_network = D.compound_systems.find(U.system_ID)->second;
+    Class& C_T = reaction_network.classes.begin()->second;
+    Compound& D_T = C_T.class_compounds.begin()->second;
+    System& T_in_network = D_T.compound_systems.begin()->second;
 
     // Ajout d'une arête entre T et U
-    reaction_network.add_system_in_network_from_edge(C,T_in_network,U_in_network,12.74,5.8);
+    reaction_network.add_system_in_network_from_edge(C_T,T_in_network,U,12.74,5.8);
 
-    // Ajout d'une hyperarête entre V et X
-    multiset<System> reactants = {V};
+    // Récupération de V
+    Class& C_V = reaction_network.classes.find(calculate_class_ID(V))->second;
+    Compound& D_V = C_V.class_compounds.find(calculate_InChI(V))->second;
+    System& V_in_network = D_V.compound_systems.find(V.system_ID)->second;
+
+    // Ajout d'une hyperarête entre V et X,X
+    multiset<System> reactants = {V_in_network};
     multiset<System> products = {X,X};
     reaction_network.add_system_in_network_from_hyperedge(reactants,products,24.0,2.34);
 
+    // Récupération de S
+    Class& C_S = reaction_network.classes.find(calculate_class_ID(S))->second;
+    Compound& D_S = C_S.class_compounds.find(calculate_InChI(S))->second;
+    System& S_in_network = D_S.compound_systems.find(S.system_ID)->second;
+
     // Découverte d'un conformère Y à partir de S
     System Y("H2CCCH2 - 1",atoms_S,16);
-    reaction_network.add_system_in_network_from_edge(C,S,Y,0.3,0.2);
+    reaction_network.add_system_in_network_from_edge(C_S,S_in_network,Y,0.3,0.2);
 
-    // Découverte d'un isomère Alpha à partir de S
-    System Alpha("CHCHCH2 - 2",atoms_U,16);
-    reaction_network.add_system_in_network_from_edge(C,S,Alpha,12,6);
+    // Redécouverte de T à partir de S
+    reaction_network.add_system_in_network_from_edge(C_S,S_in_network,T,12,6);
+
+    // Récupération de W
+    Class& C_W = reaction_network.classes.find(calculate_class_ID(W))->second;
+    Compound& D_W = C_W.class_compounds.find(calculate_InChI(W))->second;
+    System& W_in_network = D_W.compound_systems.find(W.system_ID)->second;
 
     // Découverte de produit Z et re-découverte de produit X à partir de W
     System Z("OH- - 0",{"O","H"},8);
-    multiset<System> reactants2 = {W};
+    multiset<System> reactants2 = {W_in_network};
     multiset<System> products2 = {X,Z};
     reaction_network.add_system_in_network_from_hyperedge(reactants2,products2,4,9.5);
 
-    // Découverte de Beta à partir de W et X
-    multiset<string> atoms_Beta = {"H","H","H","O"};
-    System Beta("H3O+ - 0",atoms_Beta,8);
-    multiset<System> reactants3 = {W,X};
-    multiset<System> products3 = {Beta};
+    // Récupération de X
+    Class& C_X = reaction_network.classes.find(calculate_class_ID(X))->second;
+    Compound& D_X = C_X.class_compounds.find(calculate_InChI(X))->second;
+    System& X_in_network = D_X.compound_systems.find(X.system_ID)->second;
+
+    // Découverte de Alpha à partir de W et X
+    multiset<string> atoms_Alpha = {"H","H","H","O"};
+    System Alpha("H3O+ - 0",atoms_Alpha,8);
+    multiset<System> reactants3 = {W_in_network,X_in_network};
+    multiset<System> products3 = {Alpha};
     reaction_network.add_system_in_network_from_hyperedge(reactants3,products3,2.33,9.41);
 
     // Affichage
     print_network(reaction_network);
-    print_class_matrix(C);
+    print_class_matrix(C_T);
     print_hyperedges(reaction_network);
 
     cout << endl << "Hello reaction network!" << endl;

@@ -5,11 +5,10 @@
 using namespace std;
 
 
-const string calculate_system_ID(const Compound C)
+void update_system_ID(System& S,const Compound& C)
 {
     size_t compound_number = C.compound_systems.size();
-    string ID = C.InChI + " - " + to_string(compound_number);
-    return ID;
+    S.system_ID = S.system_ID + " - " + to_string(compound_number);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -35,4 +34,11 @@ const string calculate_class_ID(const System S)
     }
     class_ID.append(" - " + to_string(n));
     return class_ID;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+bool same_system(const System S, const System T)
+{
+    return false;   // placeholder
 }

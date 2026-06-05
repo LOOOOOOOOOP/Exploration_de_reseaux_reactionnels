@@ -17,7 +17,8 @@ Class::Class(size_t& number_of_systems,const string ID,System& S) : class_ID(ID)
 
 void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, float RP_barrier, float PR_barrier)
 {
-    bool new_product_system = false; // Indique si le système P existait déjà dans le réseau
+    bool new_product_system = true; // Indique si le système P existait déjà dans le réseau
+    System* already_existing_P; // si P existe déjà dans le réseau, pointeur vers P
 
 // Ajout du système dans le bon composé
     const string ID = calculate_InChI(P);
@@ -25,7 +26,6 @@ void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, 
 
     if (it == class_compounds.end()) // Si le composé n'existe pas
     {
-        new_product_system = true;
         Compound C(ID);
 
         P.insertion_rank_in_class = number_of_systems_in_class;
@@ -34,18 +34,45 @@ void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, 
         P.insertion_rank_in_network = number_of_systems;
         number_of_systems++;
 
+        //update_system_ID(P,C);
+
         C.compound_systems.insert(make_pair(P.system_ID,P));
         class_compounds.insert(make_pair(ID,C));
 
     }
-    else
+    else    // le composé existe
     {
         Compound& C = it->second;
-
-        if (C.compound_systems.find(P.system_ID) == C.compound_systems.end()) // Si le système n'existe pas déjà
+        /* À garder lorsque la fonction same_system sera fonctionnelle
+        for (map<string,System>::iterator it = C.compound_systems.begin(); it != C.compound_systems.end(); it++)
         {
-            new_product_system = true;
+            if (same_system(P,it->second) == true)
+            {
+                new_product_system = false;
+                already_existing_P = &(it->second);
+                break;
+            }
+        }
 
+        if (new_product_system == true) // Si le système n'existe pas déjà
+        {
+            P.insertion_rank_in_class = number_of_systems_in_class;
+            number_of_systems_in_class++;
+
+            P.insertion_rank_in_network = number_of_systems;
+            number_of_systems++;
+
+            update_system_ID(P,C);
+
+            C.compound_systems.insert(make_pair(P.system_ID,P));
+        }
+
+        */
+
+        ////// À enlever quand same_system fonctionnera
+        map<const string,System>::iterator itt = C.compound_systems.find(P.system_ID);
+        if (itt == C.compound_systems.end())
+        {
             P.insertion_rank_in_class = number_of_systems_in_class;
             number_of_systems_in_class++;
 
@@ -54,6 +81,12 @@ void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, 
 
             C.compound_systems.insert(make_pair(P.system_ID,P));
         }
+        else
+        {
+            new_product_system = false;
+            already_existing_P = &(itt->second);
+        }
+        //////
     }
 
 // Ajout des arêtes dans la matrice d'adjacence
@@ -93,7 +126,7 @@ else
     else // Si le système existait déjà, on ajoute l'arête
     {
         size_t i = R.insertion_rank_in_class;
-        size_t j = P.insertion_rank_in_class;
+        size_t j = already_existing_P->insertion_rank_in_class;
         edges[i][j] = RP_barrier;
         edges[j][i] = PR_barrier;
     }
