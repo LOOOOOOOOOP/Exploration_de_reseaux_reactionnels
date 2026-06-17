@@ -3,6 +3,11 @@
 #include <iostream>
 using namespace std;
 
+void print_system(System S)
+{
+    cout << S.system_ID << endl;
+}
+
 void print_network(Network N)
 {
     cout << "Number of systems discovered: " << N.number_of_systems << endl << endl;

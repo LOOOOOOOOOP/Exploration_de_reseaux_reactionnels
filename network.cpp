@@ -19,6 +19,7 @@ Network::Network(deque<System>& initial_systems) : number_of_systems(0)
 }
 
 /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
 void Network::add_isolated_system_to_network(System& S)
 {
@@ -26,9 +27,9 @@ void Network::add_isolated_system_to_network(System& S)
     map<const string,Class>::iterator it = classes.find(ID);
 
     if (it == classes.end()) // Si la classe n'existe pas
-        classes.insert(make_pair(ID,Class(number_of_systems,ID,S)));
+        classes.insert(make_pair(ID,Class(number_of_systems,compound_unexplored_systems,class_unexplored_systems,ID,S)));
     else
-        it->second.add_isolated_system_in_class(number_of_systems,S);
+        it->second.add_isolated_system_in_class(number_of_systems,compound_unexplored_systems,class_unexplored_systems,S);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -37,7 +38,7 @@ void Network::add_system_in_network_from_edge(Class& C, System& R, System& P, fl
 {
     assert (calculate_class_ID(P) == C.class_ID);
 
-    C.add_system_in_class(number_of_systems,R,P,RP_barrier,PR_barrier);
+    C.add_system_in_class_from_edge(number_of_systems,compound_unexplored_systems,class_unexplored_systems,R,P,RP_barrier,PR_barrier);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -54,12 +55,15 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
         map<const string,Class>::iterator it = classes.find(class_ID_P);
         if (it == classes.end()) // Si la classe n'existe pas
         {
-            Class C(number_of_systems,class_ID_P,Pi);
+            Class C(number_of_systems,compound_unexplored_systems,class_unexplored_systems,class_ID_P,Pi);
             classes.insert(make_pair(class_ID_P,C));
             Compound D(InChI_P);
             //update_system_ID(Pi,D);
             D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
             C.class_compounds.insert(make_pair(InChI_P,D));
+
+            compound_unexplored_systems.push_back(Pi);
+            class_unexplored_systems.push_back(Pi);
 
             P.erase(i);
             P.insert(Pi);
@@ -80,6 +84,9 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                 //update_system_ID(Pi,D);
                 D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
                 C.class_compounds.insert(make_pair(InChI_P,D));
+
+                compound_unexplored_systems.push_back(Pi);
+                class_unexplored_systems.push_back(Pi);
 
                 P.erase(i);
                 P.insert(Pi);
@@ -116,6 +123,9 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
 
                     D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
 
+                    compound_unexplored_systems.push_back(Pi);
+                    class_unexplored_systems.push_back(Pi);
+
                     P.erase(i);
                     P.insert(Pi);
                 }
@@ -132,6 +142,9 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
 
                     D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
 
+                    compound_unexplored_systems.push_back(Pi);
+                    class_unexplored_systems.push_back(Pi);
+
                     P.erase(i);
                     P.insert(Pi);
                 }
@@ -147,4 +160,27 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
 
     // Ajout de l'hyperarête
     hyperedges.insert(Hyperedge(R,P,make_pair(RP_barrier,PR_barrier)));
+}
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+void Network::simulate(vector<float> initial_concentrations)
+{
+    update_systems_concentration_function(initial_concentrations);
+    update_edges_flux();
+}
+
+/////////////////////////////////////////////////////////////////////
+
+void Network::update_systems_concentration_function(vector<float> initial_concentrations)
+{
+    return;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+void Network::update_edges_flux()
+{
+    return;
 }

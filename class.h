@@ -22,10 +22,10 @@ class Class
     const std::string class_ID;
 
     Class();
-    Class(size_t&,const std::string,System&);
+    Class(size_t&,std::vector<System>&,std::vector<System>&,const std::string,System&);
 
-    void add_system_in_class(size_t&,System&,System&,float,float); // Ajoute un système dans la même classe qu'un autre système, en créant l'arête. Update aussi le nombre de systèmes dans le réseau
-    void add_isolated_system_in_class(size_t&,System&); // Ajoute un système qui n'est pas adjacent à un autre système dans la classe
+    void add_system_in_class_from_edge(size_t&,std::vector<System>&,std::vector<System>&,System&,System&,float,float); // Ajoute un système dans la même classe qu'un autre système, en créant l'arête. Update aussi le nombre de systèmes dans le réseau
+    void add_isolated_system_in_class(size_t&,std::vector<System>&,std::vector<System>&,System&); // Ajoute un système qui n'est pas adjacent à un autre système dans la classe
 
     /////////////////////////////////////////////////////////////////////
 

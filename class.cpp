@@ -7,15 +7,15 @@ Class::Class() : n_electrons(0), number_of_systems_in_class(0){}
 
 /////////////////////////////////////////////////////////////////////
 
-Class::Class(size_t& number_of_systems,const string ID,System& S) : class_ID(ID), atoms(S.atoms), n_electrons(S.n_electrons)
+Class::Class(size_t& number_of_systems,vector<System>& compound_unexplored_systems,vector<System>& class_unexplored_systems,const string ID,System& S) : class_ID(ID), atoms(S.atoms), n_electrons(S.n_electrons)
 {
     number_of_systems_in_class = 0;
-    add_isolated_system_in_class(number_of_systems,S);
+    add_isolated_system_in_class(number_of_systems,compound_unexplored_systems,class_unexplored_systems,S);
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, float RP_barrier, float PR_barrier)
+void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<System>& compound_unexplored_systems,vector<System>& class_unexplored_systems,System& R, System& P, float RP_barrier, float PR_barrier)
 {
     bool new_product_system = true; // Indique si le système P existait déjà dans le réseau
     System* already_existing_P; // si P existe déjà dans le réseau, pointeur vers P
@@ -39,6 +39,8 @@ void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, 
         C.compound_systems.insert(make_pair(P.system_ID,P));
         class_compounds.insert(make_pair(ID,C));
 
+        compound_unexplored_systems.push_back(P);
+        class_unexplored_systems.push_back(P);
     }
     else    // le composé existe
     {
@@ -65,6 +67,9 @@ void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, 
             update_system_ID(P,C);
 
             C.compound_systems.insert(make_pair(P.system_ID,P));
+
+            compound_unexplored_systems.push_back(P);
+            class_unexplored_systems.push_back(P);
         }
 
         */
@@ -80,6 +85,9 @@ void Class::add_system_in_class(size_t& number_of_systems,System& R, System& P, 
             number_of_systems++;
 
             C.compound_systems.insert(make_pair(P.system_ID,P));
+
+            compound_unexplored_systems.push_back(P);
+            class_unexplored_systems.push_back(P);
         }
         else
         {
@@ -135,7 +143,7 @@ else
 
 /////////////////////////////////////////////////////////////////////
 
-void Class::add_isolated_system_in_class(size_t& number_of_systems,System& S)
+void Class::add_isolated_system_in_class(size_t& number_of_systems,vector<System>& compound_unexplored_systems,vector<System>& class_unexplored_systems,System& S)
 {
-    add_system_in_class(number_of_systems,S,S,-1,-1);
+    add_system_in_class_from_edge(number_of_systems,compound_unexplored_systems,class_unexplored_systems,S,S,-1,-1);
 }

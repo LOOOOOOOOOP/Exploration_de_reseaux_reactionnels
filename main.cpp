@@ -1,5 +1,7 @@
 #include "network.h"
 #include "Testing/print_tests.h"
+#include "Testing/parameters.h"
+#include "Testing/generate_synthetic_network.h"
 #include "calculate_IDs.h"  // pour tester avec print_class_matrix
 
 #include <iostream>
@@ -11,6 +13,8 @@ using namespace std;
 
 int main()
 {
+/////////////////// Tests de structure ///////////////////
+/*
     // Création de systèmes moléculaires
     multiset<string> atoms_S = {"H","H","C","C","C","H","H"};
     System S("H2CCCH2 - 0",atoms_S,16);
@@ -93,6 +97,19 @@ int main()
     print_network(reaction_network);
     print_class_matrix(C_T);
     print_hyperedges(reaction_network);
+*/
+
+//////////////// Tests de réseaux synthétiques ////////////////
+
+    Parameters param;
+    param.seed = time(0);
+    param.initial_systems_are_from_different_compounds = false;
+    //System S = generate_system(param);
+    //print_system(S);
+
+    Network reaction_network = generate_synthetic_network(param);
+    print_network(reaction_network);
+
 
     cout << endl << "Hello reaction network!" << endl;
     return 0;
