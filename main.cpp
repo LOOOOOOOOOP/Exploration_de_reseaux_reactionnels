@@ -14,25 +14,30 @@ using namespace std;
 int main()
 {
 /////////////////// Tests de structure ///////////////////
-/*
+
+    // Atomes
+    Atom H("H",1,0.6);
+    Atom C("C",6,0.25);
+    Atom O("O",8,0.05);
+
     // Création de systèmes moléculaires
-    multiset<string> atoms_S = {"H","H","C","C","C","H","H"};
-    System S("H2CCCH2 - 0",atoms_S,16);
+    multiset<Atom> atoms_S = {H,H,C,C,C,H,H};
+    System S("H2CCCH2",atoms_S,16,0);
 
-    multiset<string> atoms_T = {"C","H","C","H","C","H","H"};
-    System T("CHCHCH2 - 0",atoms_T,16);
+    multiset<Atom> atoms_T = {C,H,C,H,C,H,H};
+    System T("CHCHCH2",atoms_T,16,0);
 
-    multiset<string> atoms_U = {"C","H","C","H","C","H","H"};
-    System U("CHCHCH2 - 1",atoms_U,16);
+    multiset<Atom> atoms_U = {C,H,C,H,C,H,H};
+    System U("CHCHCH2",atoms_U,16,0);
 
-    multiset<string> atoms_V = {"H","H"};
-    System V("H2 - 0",atoms_V,2);
+    multiset<Atom> atoms_V = {H,H};
+    System V("H2",atoms_V,2,0);
 
-    multiset<string> atoms_W = {"H","H","O"};
-    System W("H2O - 0",atoms_W,8);
+    multiset<Atom> atoms_W = {H,H,O};
+    System W("H2O",atoms_W,8,0);
 
-    multiset<string> atoms_X = {"H"};
-    System X("H+ - 0",atoms_X,0);
+    multiset<Atom> atoms_X = {H};
+    System X("H+",atoms_X,0,1);
 
     // Regroupement des systèmes dans un deque initial
     deque<System> initial_systems = {S,T,U,V,W,X};
@@ -64,7 +69,7 @@ int main()
     System& S_in_network = D_S.compound_systems.find(S.system_ID)->second;
 
     // Découverte d'un conformère Y à partir de S
-    System Y("H2CCCH2 - 1",atoms_S,16);
+    System Y("H2CCCH2",atoms_S,16,0);
     reaction_network.add_system_in_network_from_edge(C_S,S_in_network,Y,0.3,0.2);
 
     // Redécouverte de T à partir de S
@@ -76,7 +81,7 @@ int main()
     System& W_in_network = D_W.compound_systems.find(W.system_ID)->second;
 
     // Découverte de produit Z et re-découverte de produit X à partir de W
-    System Z("OH- - 0",{"O","H"},8);
+    System Z("OH-",{O,H},8,-1);
     multiset<System> reactants2 = {W_in_network};
     multiset<System> products2 = {X,Z};
     reaction_network.add_system_in_network_from_hyperedge(reactants2,products2,4,9.5);
@@ -87,8 +92,8 @@ int main()
     System& X_in_network = D_X.compound_systems.find(X.system_ID)->second;
 
     // Découverte de Alpha à partir de W et X
-    multiset<string> atoms_Alpha = {"H","H","H","O"};
-    System Alpha("H3O+ - 0",atoms_Alpha,8);
+    multiset<Atom> atoms_Alpha = {H,H,H,O};
+    System Alpha("H3O+",atoms_Alpha,8,1);
     multiset<System> reactants3 = {W_in_network,X_in_network};
     multiset<System> products3 = {Alpha};
     reaction_network.add_system_in_network_from_hyperedge(reactants3,products3,2.33,9.41);
@@ -97,10 +102,10 @@ int main()
     print_network(reaction_network);
     print_class_matrix(C_T);
     print_hyperedges(reaction_network);
-*/
+
 
 //////////////// Tests de réseaux synthétiques ////////////////
-
+/*
     Parameters param;
     param.seed = time(0);
     param.initial_systems_are_from_different_compounds = false;
@@ -109,7 +114,7 @@ int main()
 
     Network reaction_network = generate_synthetic_network(param);
     print_network(reaction_network);
-
+*/
 
     cout << endl << "Hello reaction network!" << endl;
     return 0;

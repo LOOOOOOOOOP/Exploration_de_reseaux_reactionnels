@@ -10,13 +10,14 @@
 std::multiset<Atom> generate_atoms(Parameters);
 int generate_charge(std::multiset<Atom>,Parameters);
 size_t generate_number_of_electrons(std::multiset<Atom>,int);
-std::string generate_system_ID(std::multiset<Atom>,size_t,int);
+std::string generate_system_ID(Parameters,std::multiset<Atom>,size_t,int);
 
 System generate_system(Parameters);
 
 std::deque<System> generate_initial_systems(size_t);
 
-float generate_edge_barrier(Parameters,System&,System&);
+float generate_barrier_between_compound_neighbours(Parameters,System&,System&);
+float generate_barrier_between_class_neighbours(Parameters,System&,System&);
 float generate_hyperedge_barrier(Parameters,std::multiset<System>&,std::multiset<System>&);
 
 void generate_compound_neighbour(Parameters,Network&,Class&,System&);

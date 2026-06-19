@@ -11,13 +11,14 @@
 class Class
 {
     private:
-    const std::multiset<std::string> atoms;
+    const std::multiset<Atom> atoms;
     const size_t n_electrons;
     public:
     size_t number_of_systems_in_class;
     std::map<const std::string,Compound> class_compounds; // ordonnés selon leur InChI
     std::vector<std::vector<float>> edges; // matrice d'adjacence avec les barrières. Si les deux systèmes ne sont pas adjacents, la barrière est de -1
                                             // premier vecteur: contient les vecteurs-lignes
+    std::vector<std::vector<float>> edges_flux; // flux des arêtes de la matrice d'adjacence. Initialisés à -1
 
     const std::string class_ID;
 

@@ -3,5 +3,5 @@ using namespace std;
 
 Compound::Compound(){}
 
-Compound::Compound(const string ID) : InChI(ID) {}
+Compound::Compound(const string ID) : InChI(ID){}
 

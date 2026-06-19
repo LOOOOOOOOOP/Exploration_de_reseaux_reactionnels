@@ -8,34 +8,6 @@
 #include <string>
 
 
-class Atom
-{
-    public:
-    std::string symbol;
-    int atomic_number;
-    float probability;
-
-    Atom();
-    Atom(std::string s,int n, float p): symbol(s), atomic_number(n), probability(p){}
-
-    friend bool operator==(Atom a, Atom b)
-    {
-        return (a.symbol == b.symbol);
-    }
-
-    friend bool operator<(Atom a, Atom b)
-    {
-        return (a.symbol < b.symbol);
-    }
-
-    friend bool operator>(Atom a, Atom b)
-    {
-        return (a.symbol > b.symbol);
-    }
-};
-
-/////////////////////////////////////////////////////////////////////
-
 class Parameters
 {
     public:
@@ -57,11 +29,18 @@ class Parameters
     Parameters();
 
     std::multiset<Atom> atoms_distribution_function();
+    std::string InChI_connectivity_sublayer(std::multiset<Atom>);
+    std::string InChI_hydrogen_sublayer(std::multiset<Atom>);
     int charge_distribution_function();
 
-    size_t conformer_degree_distribution(System);   // retourne le nombre de voisins intra-composés d'un système
+    size_t number_of_compound_neighbours_distribution(System);   // retourne le nombre de voisins intra-composés d'un système
+    size_t size_of_class(std::multiset<Atom>);
+    size_t number_of_class_neighbours_distribution(std::multiset<Atom>);
 
-    float compound_barrier_distribution();    // génère une valeur de barrière entre deux systèmes du même composé
+    float generate_barrier_between_compound_neighbours(System,System);    // génère une valeur de barrière entre deux systèmes du même composé
+    float generate_barrier_between_class_neighbours(System,System); // génère une valeur de barrière entre deux systèmes de la même classe (mais pas du même composé)
+
+    float generate_hyperedge_barrier(std::multiset<System>,std::multiset<System>);
 };
 
 

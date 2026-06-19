@@ -8,9 +8,9 @@ using namespace std;
 Parameters::Parameters() :
     seed(14),
 
-    possible_atoms({Atom("H",1,0.5),
-                    Atom("C",6,0.3),
-                    Atom("O",8,0.1),
+    possible_atoms({Atom("H",1,0.6),
+                    Atom("C",6,0.25),
+                    Atom("O",8,0.05),
                     Atom("N",7,0.05),
                     Atom("F",9,0.002),
                     Atom("Cl",17,0.02),
@@ -59,6 +59,68 @@ multiset<Atom> Parameters::atoms_distribution_function()
 
 /////////////////////////////////////////////////////////////////////
 
+string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)
+{
+    mt19937 generator(seed);
+    string sublayer = "/c";
+
+    Atom H("H",1,0.6);
+    size_t number_of_non_H = atoms.size() - atoms.count(H);
+
+    // Numéros des atomes à connecter (parfois avec répétition)
+    set<int> numbers;
+    for (size_t i = 1; i <= number_of_non_H; i++)
+    {
+        numbers.insert(i);
+        uniform_int_distribution<int> distribute(1,100);
+        int random_number = distribute(generator);
+        if (random_number > 90 && random_number <= 97)
+            numbers.insert(i);
+        else if (random_number > 97)
+        {
+            numbers.insert(i);
+            numbers.insert(i);
+        }
+    }
+
+    // Ajout de la connectivité au sublayer
+    while (numbers.empty() == false)
+    {
+        // On choisit un numéro au hasard
+        uniform_int_distribution<int> distribute(0,numbers.size()-1);
+        int number_index = distribute(generator);
+        set<int>::iterator iterator_to_number = next(numbers.begin(),number_index);
+        int number = *iterator_to_number;
+
+        if (sublayer[sublayer.length()-1] == 'c' || sublayer[sublayer.length()-1] == ')')
+            sublayer += to_string(number);
+        else
+        {
+            // 25% de chances d'être entre parenthèses
+            uniform_int_distribution<int> distribute(1,100);
+            int random_number = distribute(generator);
+            if (random_number < 75)
+                sublayer = sublayer + "-" + to_string(number);
+            else
+                sublayer = sublayer + "(" + to_string(number) + ")";
+        }
+        numbers.erase(iterator_to_number);
+    }
+
+    return sublayer;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+string Parameters::InChI_hydrogen_sublayer(multiset<Atom> atoms)
+{
+    string sublayer = "/h";
+
+    return sublayer;
+}
+
+/////////////////////////////////////////////////////////////////////
+
 int Parameters::charge_distribution_function()
 {
     mt19937 generator(seed);
@@ -69,23 +131,71 @@ int Parameters::charge_distribution_function()
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::conformer_degree_distribution(System S)
+size_t Parameters::number_of_compound_neighbours_distribution(System S)
 {
-    size_t degree;
-    size_t number_of_non_H = S.atoms.size() - S.atoms.count("H");
+    size_t number_of_neighbours;
+    size_t number_of_non_H = S.atoms.size() - S.atoms.count(Atom("H",1,0.6));
     size_t number_of_rotatable_bonds = number_of_non_H - 1;
-    size_t average_degree = pow(3,number_of_rotatable_bonds);
+    size_t average_number_of_neighbours = pow(3,number_of_rotatable_bonds);
     mt19937 generator(seed);
-    uniform_int_distribution<int> distribute(average_degree - number_of_rotatable_bonds, average_degree + number_of_rotatable_bonds);
-    degree = distribute(generator);
-    return degree;
+    uniform_int_distribution<int> distribute(average_number_of_neighbours - number_of_rotatable_bonds, average_number_of_neighbours + number_of_rotatable_bonds);
+    number_of_neighbours = distribute(generator);
+    return number_of_neighbours;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-float Parameters::compound_barrier_distribution()
+size_t Parameters::size_of_class(multiset<Atom> atoms)
+{
+    size_t number_of_non_H = atoms.size() - atoms.count(Atom("H",1,0.6));
+    size_t number_of_stereocentres = number_of_non_H / 5;
+    size_t size_of_class = pow(2,number_of_stereocentres);
+    return size_of_class;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+size_t Parameters::number_of_class_neighbours_distribution(multiset<Atom> atoms)
+{
+    size_t size_class = size_of_class(atoms);
+    mt19937 generator(seed);
+    size_t average_number_of_neighbours = size_class * 0.75;
+    if (average_number_of_neighbours < 5)
+    {
+        uniform_int_distribution<int> distribute(0, min(average_number_of_neighbours + 5,size_class));
+        return(distribute(generator));
+    }
+    else
+    {
+        uniform_int_distribution<int> distribute(average_number_of_neighbours - 5, min(average_number_of_neighbours + 5,size_class));
+        return(distribute(generator));
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+
+float Parameters::generate_barrier_between_compound_neighbours(System R,System P)
 {
     mt19937 generator(seed);
-    uniform_real_distribution<float> distribute(-5,5);
+    uniform_real_distribution<float> distribute(0,5);
     return distribute(generator);
 }
+
+/////////////////////////////////////////////////////////////////////
+
+float Parameters::generate_barrier_between_class_neighbours(System R, System P)
+{
+    mt19937 generator(seed);
+    uniform_real_distribution<float> distribute(5,50);
+    return distribute(generator);
+}
+
+/////////////////////////////////////////////////////////////////////
+
+float Parameters::generate_hyperedge_barrier(multiset<System> R, multiset<System> P)
+{
+    mt19937 generator(seed);
+    uniform_real_distribution<float> distribute(50,250);
+    return distribute(generator);
+}
+

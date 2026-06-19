@@ -4,6 +4,7 @@
 #include <deque>
 #include <set>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -39,9 +40,11 @@ size_t generate_number_of_electrons(multiset<Atom> atoms,int charge)
 
 /////////////////////////////////////////////////////////////////////
 
-string generate_system_ID(multiset<Atom> atoms,size_t n_electrons,int charge)
+string generate_system_ID(Parameters param,multiset<Atom> atoms,size_t n_electrons,int charge)
 {
-    string ID;  // atomes ordonnés selon la notation de Hill
+    string ID = "InChI=1S/";
+
+    // ajout des atomes ordonnés selon la notation de Hill
     Atom C("C",6,0.3);
     Atom H("H",1,0.5);
 
@@ -71,6 +74,25 @@ string generate_system_ID(multiset<Atom> atoms,size_t n_electrons,int charge)
     {
         ID.append(it->symbol);
     }
+/*
+    // ajout du sublayer de connectivité
+    ID = ID + param.InChI_connectivity_sublayer(atoms);
+
+    // ajout du sublayer des hydrogènes
+    ID = ID + param.InChI_hydrogen_sublayer(atoms);
+*/
+    // spécification alternative du composé contenant le système
+    mt19937 generator(param.seed);
+    size_t size_of_class = param.number_of_class_neighbours_distribution(atoms);
+    uniform_int_distribution<int> distribute(1,size_of_class);
+    int compound_number = distribute(generator);
+    ID = ID + "/compound #" + to_string(compound_number);
+
+    // ajout du sublayer de charge
+    if (charge > 0)
+        ID = ID + "/q+" + to_string(charge);
+    else if (charge < 0)
+        ID = ID + "/q" + to_string(charge);
 
     return ID;
 }
@@ -81,17 +103,11 @@ string generate_system_ID(multiset<Atom> atoms,size_t n_electrons,int charge)
 System generate_system(Parameters param)
 {
     multiset<Atom> atoms = generate_atoms(param);
-    multiset<string> atoms_names;
-    for (multiset<Atom>::iterator it = atoms.begin(); it != atoms.end(); it++)
-    {
-        atoms_names.insert(it->symbol);
-    }
-
     int charge = generate_charge(atoms,param);
     size_t number_of_electrons = generate_number_of_electrons(atoms,charge);
-    string system_ID = generate_system_ID(atoms,number_of_electrons,charge);
+    string system_ID = generate_system_ID(param,atoms,number_of_electrons,charge);
 
-    System S(system_ID,atoms_names,number_of_electrons);
+    System S(system_ID,atoms,number_of_electrons,charge);
     return S;
 }
 
@@ -149,9 +165,17 @@ deque<System> generate_initial_systems(Parameters param)
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
-float generate_edge_barrier(Parameters param, System& R, System& P)
+float generate_barrier_between_compound_neighbours(Parameters param, System& R, System& P)
 {
-    float barrier;
+    float barrier = param.generate_barrier_between_compound_neighbours(R,P);
+    return barrier;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+float generate_barrier_between_class_neighbours(Parameters param, System& R, System& P)
+{
+    float barrier = param.generate_barrier_between_class_neighbours(R,P);
     return barrier;
 }
 
@@ -159,19 +183,19 @@ float generate_edge_barrier(Parameters param, System& R, System& P)
 
 float generate_hyperedge_barrier(Parameters param, multiset<System>& R, multiset<System>& P)
 {
-    float barrier;
+    float barrier = param.generate_hyperedge_barrier(R,P);
     return barrier;
 }
 
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
-void generate_compound_neighbour(Parameters param, Network& N, Class& C, System& S)
+void generate_compound_neighbour(Parameters param, Network& N, Class& C, System& R)
 {
-    System T(calculate_InChI(S),S.atoms,S.n_electrons);
-    float ST_barrier = param.compound_barrier_distribution();
-    float TS_barrier = param.compound_barrier_distribution();
-    N.add_system_in_network_from_edge(C,S,T,ST_barrier,TS_barrier);
+    System P(calculate_InChI(R),R.atoms,R.n_electrons,R.charge);
+    float RP_barrier = generate_barrier_between_compound_neighbours(param,R,P);
+    float PR_barrier = generate_barrier_between_compound_neighbours(param,R,P);
+    N.add_system_in_network_from_edge(C,R,P,RP_barrier,PR_barrier);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -197,7 +221,7 @@ void generate_compound_neighbourhood(Parameters param,Network& N,System& S)
         }
     }
 
-    size_t new_number_of_neighbours = param.conformer_degree_distribution(S);
+    size_t new_number_of_neighbours = param.number_of_compound_neighbours_distribution(S);
     if (new_number_of_neighbours > number_of_neighbours)
     {
         for (size_t k = 0; k < new_number_of_neighbours - number_of_neighbours; k++)
@@ -210,14 +234,27 @@ void generate_compound_neighbourhood(Parameters param,Network& N,System& S)
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
-void generate_class_neighbour(Parameters param, Network& N,System& S)
+void generate_class_neighbour(Parameters param, Network& N, Class& C,System& R)
 {
-    return;
+    multiset<Atom> atoms = R.atoms;
+    size_t number_of_electrons = R.n_electrons;
+    int charge = R.charge;
+    string ID;
+    do
+    {
+        ID = generate_system_ID(param,atoms,number_of_electrons,charge);
+    }
+    while (ID == calculate_InChI(R));
+    System P(ID,atoms,number_of_electrons,charge);
+
+    float RP_barrier = generate_barrier_between_class_neighbours(param,R,P);
+    float PR_barrier = generate_barrier_between_class_neighbours(param,R,P);
+    N.add_system_in_network_from_edge(C,R,P,RP_barrier,PR_barrier);
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void generate_class_neighbourhood(Parameters param, Network& N, System& S)
+void generate_class_neighbourhood(Parameters param, Network& N, Class& C, System& S)
 {
     return;
 }

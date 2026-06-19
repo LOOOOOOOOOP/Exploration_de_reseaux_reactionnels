@@ -58,7 +58,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
             Class C(number_of_systems,compound_unexplored_systems,class_unexplored_systems,class_ID_P,Pi);
             classes.insert(make_pair(class_ID_P,C));
             Compound D(InChI_P);
-            //update_system_ID(Pi,D);
+            update_system_ID(Pi,D);
             D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
             C.class_compounds.insert(make_pair(InChI_P,D));
 
@@ -81,7 +81,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                 number_of_systems++;
 
                 Compound D(InChI_P);
-                //update_system_ID(Pi,D);
+                update_system_ID(Pi,D);
                 D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
                 C.class_compounds.insert(make_pair(InChI_P,D));
 
@@ -95,7 +95,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
             {
                 Compound &D = it2->second;
 
-                /* À garder lorsque la fonction same_system sera fonctionnelle
+                /* Version avec same_system()
                 bool new_product_system = true;
 
                 for (map<const string,System>::iterator it3 = D.compound_systems.begin(); it3 != D.compound_systems.end(); it3++)
@@ -130,7 +130,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                     P.insert(Pi);
                 }
                 */
-                ////// À enlever lorsque same_system fonctionnera
+                ////// Version sans same_system()
                 map<const string,System>::iterator it3 = D.compound_systems.find(Pi.system_ID);
                 if (it3 == D.compound_systems.end()) // Si le système n'existe pas
                 {
@@ -139,6 +139,8 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
 
                     (Pi).insertion_rank_in_network = number_of_systems;
                     number_of_systems++;
+
+                    update_system_ID(Pi,D);
 
                     D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
 

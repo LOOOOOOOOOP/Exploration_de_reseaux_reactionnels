@@ -2,9 +2,9 @@
 
 using namespace std;
 
-bool stop_exploring(Network N)
+void explore(Network N)
 {
-    return true;
+    return;
 }
 
 /////////////////////////////////////////////////////////////////////

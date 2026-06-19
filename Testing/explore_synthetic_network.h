@@ -3,7 +3,7 @@
 
 #include "../network.h"
 
-bool stop_exploring(Network);
+void explore(Network);
 
 void find_compound_neighbour(Network&,System&);
 void find_all_compound_neighbours(Network&,System&);

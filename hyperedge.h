@@ -11,6 +11,7 @@ class Hyperedge
     const std::multiset<System> reactants;
     const std::multiset<System> products;
     const std::pair<float,float> barrier;
+    std::pair<float,float> flux;    // initialisé à (-1,-1)
 
     Hyperedge();
     Hyperedge(std::multiset<System>&, std::multiset<System>&, std::pair<float,float>);

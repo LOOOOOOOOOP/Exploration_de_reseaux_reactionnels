@@ -34,7 +34,7 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
         P.insertion_rank_in_network = number_of_systems;
         number_of_systems++;
 
-        //update_system_ID(P,C);
+        update_system_ID(P,C);
 
         C.compound_systems.insert(make_pair(P.system_ID,P));
         class_compounds.insert(make_pair(ID,C));
@@ -45,7 +45,7 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
     else    // le composé existe
     {
         Compound& C = it->second;
-        /* À garder lorsque la fonction same_system sera fonctionnelle
+        /* Version avec same_system()
         for (map<string,System>::iterator it = C.compound_systems.begin(); it != C.compound_systems.end(); it++)
         {
             if (same_system(P,it->second) == true)
@@ -74,7 +74,7 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
 
         */
 
-        ////// À enlever quand same_system fonctionnera
+        ////// Version sans same_system()
         map<const string,System>::iterator itt = C.compound_systems.find(P.system_ID);
         if (itt == C.compound_systems.end())
         {
@@ -83,6 +83,8 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
 
             P.insertion_rank_in_network = number_of_systems;
             number_of_systems++;
+
+            update_system_ID(P,C);
 
             C.compound_systems.insert(make_pair(P.system_ID,P));
 
@@ -102,6 +104,7 @@ if (number_of_systems_in_class == 1)    // Si c'est le premier système dans la 
 {
     vector<float> v = {-1};
     edges.push_back(v);
+    edges_flux.push_back(v);
 }
 
 else
@@ -116,18 +119,25 @@ else
                 edges[i].push_back(RP_barrier);
             }
             else
+            {
                 edges[i].push_back(-1);
+            }
+            edges_flux[i].push_back(-1);    ////// bad alloc
         }
 
         // Ajout de la dernière ligne
         vector<float> v;
         edges.push_back(v);
+        edges_flux.push_back(v);
         for (size_t i = 0; i < edges.size(); i++)
         {
             if (i == R.insertion_rank_in_class)
                 edges[edges.size()-1].push_back(PR_barrier);
             else
+            {
                 edges[edges.size()-1].push_back(-1);
+            }
+            edges_flux[edges.size()-1].push_back(-1);
         }
     }
 
