@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <set>
 #include <string>
+#include <bits/stdc++.h>
 
 
 class Parameters
@@ -31,7 +32,7 @@ class Parameters
     std::multiset<Atom> atoms_distribution_function();
     std::string InChI_connectivity_sublayer(std::multiset<Atom>);
     std::string InChI_hydrogen_sublayer(std::multiset<Atom>);
-    int charge_distribution_function();
+    int charge_distribution_function(std::multiset<Atom>);
 
     size_t number_of_compound_neighbours_distribution(System);   // retourne le nombre de voisins intra-composés d'un système
     size_t size_of_class(std::multiset<Atom>);

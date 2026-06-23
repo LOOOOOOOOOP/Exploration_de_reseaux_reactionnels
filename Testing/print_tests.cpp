@@ -14,18 +14,18 @@ void print_network(Network N)
 
     for (map<const string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
-        cout << "////////////////////////////////////////////////////////////" << endl;
+        cout << "////////////////////////////////////////////////////////////////////////////////" << endl;
         cout << "Class: " << it->second.class_ID << endl;
         for (map<const string,Compound>::iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
         {
             cout << "  Compound: " << it2->second.InChI << endl;
             for (map<const string,System>::iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
             {
-                cout << "    " << it3->second.system_ID << "  |  rank in class: " << it3->second.insertion_rank_in_class << "  |  rank in network: " << it3->second.insertion_rank_in_network << endl;
+                cout << "    " << it3->second.system_ID << " | rank in class: " << it3->second.insertion_rank_in_class << " | rank in network: " << it3->second.insertion_rank_in_network << endl;
             }
         }
     }
-    cout << endl << "////////////////////////////////////////////////////////////" << endl;
+    cout << endl << "////////////////////////////////////////////////////////////////////////////////" << endl;
 }
 
 /////////////////////////////////////////////////////////////////////

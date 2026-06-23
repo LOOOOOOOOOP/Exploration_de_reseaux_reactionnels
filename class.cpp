@@ -132,7 +132,9 @@ else
         for (size_t i = 0; i < edges.size(); i++)
         {
             if (i == R.insertion_rank_in_class)
+            {
                 edges[edges.size()-1].push_back(PR_barrier);
+            }
             else
             {
                 edges[edges.size()-1].push_back(-1);

@@ -19,7 +19,7 @@ multiset<Atom> generate_atoms(Parameters param)
 
 int generate_charge(multiset<Atom> atoms, Parameters param)
 {
-    int charge = param.charge_distribution_function();
+    int charge = param.charge_distribution_function(atoms);
     return charge;
 }
 
@@ -27,13 +27,13 @@ int generate_charge(multiset<Atom> atoms, Parameters param)
 
 size_t generate_number_of_electrons(multiset<Atom> atoms,int charge)
 {
-    size_t number_of_electrons;
+    size_t number_of_electrons = 0;
 
     for (multiset<Atom>::iterator it = atoms.begin(); it != atoms.end(); it++)
     {
         number_of_electrons += it->atomic_number;
     }
-    number_of_electrons += charge;
+    number_of_electrons += -charge;
 
     return number_of_electrons;
 }
@@ -45,8 +45,8 @@ string generate_system_ID(Parameters param,multiset<Atom> atoms,size_t n_electro
     string ID = "InChI=1S/";
 
     // ajout des atomes ordonnés selon la notation de Hill
-    Atom C("C",6,0.3);
-    Atom H("H",1,0.5);
+    Atom C("C",6,0.25);
+    Atom H("H",1,0.6);
 
     pair<multiset<Atom>::iterator,multiset<Atom>::iterator> range_C = atoms.equal_range(C);
     if (range_C.first->symbol == C.symbol)    // S'il y a un carbone dans les atomes
@@ -82,11 +82,11 @@ string generate_system_ID(Parameters param,multiset<Atom> atoms,size_t n_electro
     ID = ID + param.InChI_hydrogen_sublayer(atoms);
 */
     // spécification alternative du composé contenant le système
-    mt19937 generator(param.seed);
-    size_t size_of_class = param.number_of_class_neighbours_distribution(atoms);
+    static mt19937 generator(param.seed);
+    size_t size_of_class = param.size_of_class(atoms);
     uniform_int_distribution<int> distribute(1,size_of_class);
     int compound_number = distribute(generator);
-    ID = ID + "/compound #" + to_string(compound_number);
+    ID = ID + "/compound#" + to_string(compound_number);
 
     // ajout du sublayer de charge
     if (charge > 0)
@@ -120,43 +120,38 @@ deque<System> generate_initial_systems(Parameters param)
 
     for (size_t i = 0; i < param.number_of_initial_systems; i++)
     {
-        System* pS;
         if (param.initial_systems_are_from_different_compounds == true)
         {
-        bool compound_already_exists;
-        do
-        {
-            compound_already_exists = false;
-            System S = generate_system(param);
-
-            if (initial_systems.size() == 0)
-                continue;
-            else
+            bool compound_already_exists;
+            do
             {
-                if (param.initial_systems_are_from_different_compounds == true)
+                compound_already_exists = false;
+                System S = generate_system(param);
+
+                if (initial_systems.size() > 0)
                 {
-                    for (size_t j = 0; j < initial_systems.size(); j++)
+                    if (param.initial_systems_are_from_different_compounds == true)
                     {
-                        if (calculate_InChI(initial_systems[j]) == calculate_InChI(S))
+                        for (size_t j = 0; j < initial_systems.size(); j++)
                         {
-                            compound_already_exists = true;
-                            break;
+                            if (calculate_InChI(initial_systems[j]) == calculate_InChI(S))
+                            {
+                                compound_already_exists = true;
+                                break;
+                            }
                         }
                     }
                 }
-                else
-                    compound_already_exists = false;
+            if (compound_already_exists == false)
+                initial_systems.push_back(S);
             }
-            pS = &S;
-        }
-        while (compound_already_exists == true);
+            while (compound_already_exists == true);
         }
         else    // les systèmes initiaux peuvent être du même composé
         {
             System S = generate_system(param);
-            pS = &S;
+            initial_systems.push_back(S);
         }
-        initial_systems.push_back(*pS);
     }
 
     return initial_systems;

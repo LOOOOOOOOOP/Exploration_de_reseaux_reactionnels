@@ -52,6 +52,7 @@ class System
 
     System();
     System(const std::string,const std::multiset<Atom>,const size_t,const size_t);    // InChI, atomes, nombre d'électrons, charge
+    System(const System&);
 
 /////////////////////////////////////////////////////////////////////
 

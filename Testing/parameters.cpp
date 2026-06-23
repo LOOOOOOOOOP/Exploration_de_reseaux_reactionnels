@@ -36,7 +36,7 @@ Parameters::Parameters() :
 multiset<Atom> Parameters::atoms_distribution_function()
 {
     multiset<Atom> atoms;
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
 
     vector<float> probabilities;
     for (set<Atom>::iterator it = possible_atoms.begin(); it != possible_atoms.end(); it++)
@@ -59,9 +59,9 @@ multiset<Atom> Parameters::atoms_distribution_function()
 
 /////////////////////////////////////////////////////////////////////
 
-string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)
+string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)    // pas utilisé
 {
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     string sublayer = "/c";
 
     Atom H("H",1,0.6);
@@ -112,7 +112,7 @@ string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)
 
 /////////////////////////////////////////////////////////////////////
 
-string Parameters::InChI_hydrogen_sublayer(multiset<Atom> atoms)
+string Parameters::InChI_hydrogen_sublayer(multiset<Atom> atoms)    // pas utilisé
 {
     string sublayer = "/h";
 
@@ -121,11 +121,24 @@ string Parameters::InChI_hydrogen_sublayer(multiset<Atom> atoms)
 
 /////////////////////////////////////////////////////////////////////
 
-int Parameters::charge_distribution_function()
+int Parameters::charge_distribution_function(multiset<Atom> atoms)
 {
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     discrete_distribution<> charge_distribution({0.0125,0.0375,0.075,0.75,0.075,0.0375,0.0125});
-    int charge = charge_distribution(generator) - 3;
+
+    int number_of_electrons = 0;
+    for (multiset<Atom>::iterator it = atoms.begin(); it != atoms.end(); it++)
+    {
+        number_of_electrons += it->atomic_number;
+    }
+
+    int charge;
+    do
+    {
+        charge = charge_distribution(generator) - 3;
+    }
+    while (number_of_electrons - charge < 0);
+
     return charge;
 }
 
@@ -137,7 +150,7 @@ size_t Parameters::number_of_compound_neighbours_distribution(System S)
     size_t number_of_non_H = S.atoms.size() - S.atoms.count(Atom("H",1,0.6));
     size_t number_of_rotatable_bonds = number_of_non_H - 1;
     size_t average_number_of_neighbours = pow(3,number_of_rotatable_bonds);
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     uniform_int_distribution<int> distribute(average_number_of_neighbours - number_of_rotatable_bonds, average_number_of_neighbours + number_of_rotatable_bonds);
     number_of_neighbours = distribute(generator);
     return number_of_neighbours;
@@ -158,7 +171,7 @@ size_t Parameters::size_of_class(multiset<Atom> atoms)
 size_t Parameters::number_of_class_neighbours_distribution(multiset<Atom> atoms)
 {
     size_t size_class = size_of_class(atoms);
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     size_t average_number_of_neighbours = size_class * 0.75;
     if (average_number_of_neighbours < 5)
     {
@@ -176,7 +189,7 @@ size_t Parameters::number_of_class_neighbours_distribution(multiset<Atom> atoms)
 
 float Parameters::generate_barrier_between_compound_neighbours(System R,System P)
 {
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     uniform_real_distribution<float> distribute(0,5);
     return distribute(generator);
 }
@@ -185,7 +198,7 @@ float Parameters::generate_barrier_between_compound_neighbours(System R,System P
 
 float Parameters::generate_barrier_between_class_neighbours(System R, System P)
 {
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     uniform_real_distribution<float> distribute(5,50);
     return distribute(generator);
 }
@@ -194,7 +207,7 @@ float Parameters::generate_barrier_between_class_neighbours(System R, System P)
 
 float Parameters::generate_hyperedge_barrier(multiset<System> R, multiset<System> P)
 {
-    mt19937 generator(seed);
+    static mt19937 generator(seed);
     uniform_real_distribution<float> distribute(50,250);
     return distribute(generator);
 }
