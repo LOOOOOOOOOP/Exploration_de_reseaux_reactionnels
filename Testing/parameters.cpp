@@ -59,7 +59,7 @@ multiset<Atom> Parameters::atoms_distribution_function()
 
 /////////////////////////////////////////////////////////////////////
 
-string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)    // pas utilisé
+string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)
 {
     static mt19937 generator(seed);
     string sublayer = "/c";
@@ -67,8 +67,11 @@ string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)    // pas u
     Atom H("H",1,0.6);
     size_t number_of_non_H = atoms.size() - atoms.count(H);
 
+    if (number_of_non_H < 2)
+        return "";
+
     // Numéros des atomes à connecter (parfois avec répétition)
-    set<int> numbers;
+    multiset<int> numbers;
     for (size_t i = 1; i <= number_of_non_H; i++)
     {
         numbers.insert(i);
@@ -146,10 +149,14 @@ int Parameters::charge_distribution_function(multiset<Atom> atoms)
 
 size_t Parameters::number_of_compound_neighbours_distribution(System S)
 {
-    size_t number_of_neighbours;
-    size_t number_of_non_H = S.atoms.size() - S.atoms.count(Atom("H",1,0.6));
-    size_t number_of_rotatable_bonds = number_of_non_H - 1;
-    size_t average_number_of_neighbours = pow(3,number_of_rotatable_bonds);
+    int number_of_neighbours;
+    int number_of_non_H = S.atoms.size() - S.atoms.count(Atom("H",1,0.6));
+
+    if (S.atoms.size() < 3 || number_of_non_H < 2)
+        return 0;
+
+    int number_of_rotatable_bonds = max(number_of_non_H - 1,0);
+    int average_number_of_neighbours = pow(3,number_of_rotatable_bonds);
     static mt19937 generator(seed);
     uniform_int_distribution<int> distribute(average_number_of_neighbours - number_of_rotatable_bonds, average_number_of_neighbours + number_of_rotatable_bonds);
     number_of_neighbours = distribute(generator);
@@ -161,18 +168,23 @@ size_t Parameters::number_of_compound_neighbours_distribution(System S)
 size_t Parameters::size_of_class(multiset<Atom> atoms)
 {
     size_t number_of_non_H = atoms.size() - atoms.count(Atom("H",1,0.6));
-    size_t number_of_stereocentres = number_of_non_H / 5;
+    size_t number_of_stereocentres = number_of_non_H / 4;
     size_t size_of_class = pow(2,number_of_stereocentres);
     return size_of_class;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::number_of_class_neighbours_distribution(multiset<Atom> atoms)
+size_t Parameters::number_of_class_neighbours_distribution(System S)
 {
+    multiset<Atom> atoms = S.atoms;
     size_t size_class = size_of_class(atoms);
     static mt19937 generator(seed);
-    size_t average_number_of_neighbours = size_class * 0.75;
+
+    if (size_class == 1)
+        return 0;
+
+    size_t average_number_of_neighbours = size_class * 3 / 4;
     if (average_number_of_neighbours < 5)
     {
         uniform_int_distribution<int> distribute(0, min(average_number_of_neighbours + 5,size_class));

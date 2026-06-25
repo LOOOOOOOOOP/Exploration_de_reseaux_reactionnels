@@ -115,7 +115,8 @@ int main()
     Parameters param;
     param.seed = time(0);
     param.initial_systems_are_from_different_compounds = true;
-    param.max_number_of_atoms_in_system = 7;
+    param.max_number_of_atoms_in_system = 11;
+    param.number_of_generation_rounds = 1;
 
     //System S = generate_system(param);
     //print_system(S);

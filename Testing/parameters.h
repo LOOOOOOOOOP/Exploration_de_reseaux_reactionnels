@@ -22,7 +22,7 @@ class Parameters
     bool initial_systems_are_from_different_compounds;    // les systèmes initiaux appartiennent tous à des composés différents
 
     size_t number_of_generation_rounds;
-    float percentage_of_pairs_per_round;   // pourcentage des paires de systèmes sélectionnées pour générer un voisin extra-classe à chaque ronde
+    float percentage_of_pairs_per_round;   // pourcentage des systèmes sélectionnées pour générer un voisin extra-classe à chaque ronde
     float percentage_of_splittings_per_round;   // pourcentage des systèmes sélectionnés pour se séparer en plusieurs voisins extra-classe à chaque ronde
     size_t max_splittedness;    // nombre maximal de voisins extra-classe générés à partir d'un système
 
@@ -36,7 +36,7 @@ class Parameters
 
     size_t number_of_compound_neighbours_distribution(System);   // retourne le nombre de voisins intra-composés d'un système
     size_t size_of_class(std::multiset<Atom>);
-    size_t number_of_class_neighbours_distribution(std::multiset<Atom>);
+    size_t number_of_class_neighbours_distribution(System);
 
     float generate_barrier_between_compound_neighbours(System,System);    // génère une valeur de barrière entre deux systèmes du même composé
     float generate_barrier_between_class_neighbours(System,System); // génère une valeur de barrière entre deux systèmes de la même classe (mais pas du même composé)

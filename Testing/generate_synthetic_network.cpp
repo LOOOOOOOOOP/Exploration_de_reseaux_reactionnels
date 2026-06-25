@@ -1,4 +1,5 @@
 #include "generate_synthetic_network.h"
+#include "print_tests.h"
 
 #include <cstdlib>
 #include <deque>
@@ -48,7 +49,8 @@ string generate_system_ID(Parameters param,multiset<Atom> atoms,size_t n_electro
     Atom C("C",6,0.25);
     Atom H("H",1,0.6);
 
-    pair<multiset<Atom>::iterator,multiset<Atom>::iterator> range_C = atoms.equal_range(C);
+    multiset<Atom> atoms_copy = atoms;
+    pair<multiset<Atom>::iterator,multiset<Atom>::iterator> range_C = atoms_copy.equal_range(C);
     if (range_C.first->symbol == C.symbol)    // S'il y a un carbone dans les atomes
     {
         // Ajout des C dans ID
@@ -56,9 +58,9 @@ string generate_system_ID(Parameters param,multiset<Atom> atoms,size_t n_electro
         {
             ID.append(it->symbol);
         }
-        atoms.erase(C);
+        atoms_copy.erase(C);
 
-        pair<multiset<Atom>::iterator,multiset<Atom>::iterator> range_H = atoms.equal_range(H);
+        pair<multiset<Atom>::iterator,multiset<Atom>::iterator> range_H = atoms_copy.equal_range(H);
         if (range_H.first->symbol == H.symbol)  // S'il y a un hydrogène dans les atomes
         {
             // Ajout des H dans ID
@@ -66,11 +68,11 @@ string generate_system_ID(Parameters param,multiset<Atom> atoms,size_t n_electro
             {
                 ID.append(it->symbol);
             }
-            atoms.erase(H);
+            atoms_copy.erase(H);
         }
     }
 
-    for (multiset<Atom>::iterator it = atoms.begin(); it != atoms.end(); it++)
+    for (multiset<Atom>::iterator it = atoms_copy.begin(); it != atoms_copy.end(); it++)
     {
         ID.append(it->symbol);
     }
@@ -197,13 +199,15 @@ void generate_compound_neighbour(Parameters param, Network& N, Class& C, System&
 
 void generate_compound_neighbourhood(Parameters param,Network& N,System& S)
 {
-    N.compound_unexplored_systems.pop_back();
-
     string S_class_ID = calculate_class_ID(S);
     string S_InChI = calculate_InChI(S);
+    string S_system_ID = S.system_ID;
     Class& C = N.classes.find(S_class_ID)->second;
     size_t i = S.insertion_rank_in_class;
     Compound& D = C.class_compounds.find(S_InChI)->second;
+    System& S_in_network = D.compound_systems.find(S_system_ID)->second;
+
+    N.compound_unexplored_systems.pop_back();
 
     // Nombre de voisins intra-composé que S possède déjà
     size_t number_of_neighbours = 0;
@@ -216,14 +220,29 @@ void generate_compound_neighbourhood(Parameters param,Network& N,System& S)
         }
     }
 
-    size_t new_number_of_neighbours = param.number_of_compound_neighbours_distribution(S);
+    size_t new_number_of_neighbours = param.number_of_compound_neighbours_distribution(S_in_network);
     if (new_number_of_neighbours > number_of_neighbours)
     {
-        for (size_t k = 0; k < new_number_of_neighbours - number_of_neighbours; k++)
-            generate_compound_neighbour(param,N,C,S);
+        size_t number_of_new_neighbours = new_number_of_neighbours - number_of_neighbours;
+
+        // Certains des nouveaux voisins sont des systèmes qui existaient déjà dans le composé
+        size_t number_of_new_already_existing_neighbours = min(number_of_new_neighbours,(D.compound_systems.size()-1) * 3 / 4);
+        static mt19937 generator;
+        uniform_int_distribution<int> distribute(0,D.compound_systems.size()-1);
+        for (size_t k = 0; k < number_of_new_already_existing_neighbours; k++)
+        {
+            int neighbour_index = distribute(generator);
+            System& P = next(D.compound_systems.begin(),neighbour_index)->second;
+            N.add_system_in_network_from_edge(C,S_in_network,P,generate_barrier_between_compound_neighbours(param,S_in_network,P),generate_barrier_between_compound_neighbours(param,S_in_network,P));
+        }
+        // On génère le reste des voisins requis
+        size_t number_of_new_non_existent_neighbours = number_of_new_neighbours - number_of_new_already_existing_neighbours;
+
+        for (size_t k = 0; k < number_of_new_non_existent_neighbours; k++)
+            generate_compound_neighbour(param,N,C,S_in_network);
     }
 
-    S.compound_explored = true;
+    S_in_network.compound_explored = true;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -240,8 +259,8 @@ void generate_class_neighbour(Parameters param, Network& N, Class& C,System& R)
         ID = generate_system_ID(param,atoms,number_of_electrons,charge);
     }
     while (ID == calculate_InChI(R));
-    System P(ID,atoms,number_of_electrons,charge);
 
+    System P(ID,atoms,number_of_electrons,charge);
     float RP_barrier = generate_barrier_between_class_neighbours(param,R,P);
     float PR_barrier = generate_barrier_between_class_neighbours(param,R,P);
     N.add_system_in_network_from_edge(C,R,P,RP_barrier,PR_barrier);
@@ -249,31 +268,138 @@ void generate_class_neighbour(Parameters param, Network& N, Class& C,System& R)
 
 /////////////////////////////////////////////////////////////////////
 
-void generate_class_neighbourhood(Parameters param, Network& N, Class& C, System& S)
+void generate_class_neighbourhood(Parameters param, Network& N, System& S)
 {
-    return;
+    string S_class_ID = calculate_class_ID(S);
+    string S_InChI = calculate_InChI(S);
+    string S_system_ID = S.system_ID;
+    size_t i = S.insertion_rank_in_class;
+    Class& C = N.classes.find(S_class_ID)->second;
+    Compound& D = C.class_compounds.find(S_InChI)->second;
+    System& S_in_network = D.compound_systems.find(S_system_ID)->second;
+
+    N.class_unexplored_systems.pop_back();
+
+    // Nombre de voisins extra-composé que S possède déjà
+    size_t number_of_neighbours = 0;
+    size_t number_of_extra_compound_systems = 0;
+    for (map<string,Compound>::iterator it = C.class_compounds.begin(); it != C.class_compounds.end(); it++)
+    {
+        if (it->second == D)
+            continue;
+        Compound& D2 = it->second;
+        for (map<string,System>::iterator it2 = D2.compound_systems.begin(); it2 != D2.compound_systems.end(); it2++)
+        {
+            size_t j = it2->second.insertion_rank_in_class;
+            if (C.edges[i][j] != -1)
+            {
+                number_of_neighbours++;
+            }
+            number_of_extra_compound_systems++;
+        }
+    }
+
+    size_t new_number_of_neighbours = param.number_of_class_neighbours_distribution(S_in_network);
+    if (new_number_of_neighbours > number_of_neighbours)
+    {
+        size_t number_of_new_neighbours = new_number_of_neighbours - number_of_neighbours;
+
+        // Certains des nouveaux voisins sont des systèmes qui existaient déjà dans la classe
+        size_t number_of_new_already_existing_neighbours = min(number_of_new_neighbours,number_of_extra_compound_systems * 3 / 4);
+        static mt19937 generator;
+        uniform_int_distribution<int> distribute_compound_index(0,C.class_compounds.size() - 1);
+        for (size_t k = 0; k < number_of_new_already_existing_neighbours; k++)
+        {
+            int compound_index;
+            do
+                compound_index = distribute_compound_index(generator);
+            while (next(C.class_compounds.begin(),compound_index)->second == D);
+
+            Compound& D2 = next(C.class_compounds.begin(),compound_index)->second;
+
+            uniform_int_distribution<int> distribute_neighbour_index(0,D2.compound_systems.size() - 1);
+            int neighbour_index = distribute_neighbour_index(generator);
+
+            System& P = next(D2.compound_systems.begin(),neighbour_index)->second;
+            N.add_system_in_network_from_edge(C,S_in_network,P,generate_barrier_between_class_neighbours(param,S_in_network,P),generate_barrier_between_class_neighbours(param,S_in_network,P));
+        }
+        // On génère le reste des voisins requis
+        size_t number_of_new_non_existent_neighbours = number_of_new_neighbours - number_of_new_already_existing_neighbours;
+
+        for (size_t k = 0; k < number_of_new_non_existent_neighbours; k++)
+            generate_class_neighbour(param,N,C,S_in_network);
+    }
+
+    S_in_network.class_explored = true;
 }
 
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
-vector<pair<System,System>>& choose_pairs_of_systems_for_hyperedges(Parameters param, Network& N)
+multiset<System>& choose_a_pair_of_systems_for_hyperedge(Network& N)
 {
-    vector<pair<System,System>> R;
+    multiset<System> R;
+    static mt19937 generator;
+    bool hyperedge_already_exists = false;
+
+    // Premier réactif
+    uniform_int_distribution<int> random_class_index(0,N.classes.size() - 1);
+    int class_index_1 = random_class_index(generator);
+    Class& C_1 = next(N.classes.begin(),class_index_1)->second;
+
+    uniform_int_distribution<int> random_compound_index_1(0,C_1.class_compounds.size() - 1);
+    int compound_index_1 = random_compound_index_1(generator);
+    Compound& D_1 = next(C_1.class_compounds.begin(),compound_index_1)->second;
+
+    uniform_int_distribution<int> random_system_index_1(0,D_1.compound_systems.size() - 1);
+    int system_index_1 = random_system_index_1(generator);
+    System& S_1 = next(D_1.compound_systems.begin(),system_index_1)->second;
+
+    R.insert(S_1);
+
+    do
+    {
+        // Deuxième réactif
+        int class_index_2 = random_class_index(generator);
+        Class& C_2 = next(N.classes.begin(),class_index_2)->second;
+
+        uniform_int_distribution<int> random_compound_index_2(0,C_2.class_compounds.size() - 1);
+        int compound_index_2 = random_compound_index_2(generator);
+        Compound& D_2 = next(C_2.class_compounds.begin(),compound_index_2)->second;
+
+        uniform_int_distribution<int> random_system_index_2(0,D_2.compound_systems.size() - 1);
+        int system_index_2 = random_system_index_2(generator);
+        System& S_2 = next(D_2.compound_systems.begin(),system_index_2)->second;
+
+        R.insert(S_2);
+
+        // Vérification qu'une hyperarête avec ces réactifs n'existe pas déjà
+        for (set<Hyperedge>::iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
+        {
+            if (it->reactants == R)
+            {
+                hyperedge_already_exists = true;
+                R.erase(S_2);
+                break;
+            }
+        }
+    }
+    while (hyperedge_already_exists == true);
+
     return R;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-vector<System>& choose_systems_for_splitting_hyperedges(Parameters param, Network& N)
+System& choose_system_for_splitting_hyperedge(Network& N)
 {
-    vector<System> R;
+    System R;
     return R;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void generate_hyperedge_from_pair(Parameters param, Network& N, pair<System,System>&)
+void generate_hyperedge_from_pair(Parameters param, Network& N, multiset<System>&)
 {
     return;
 }
@@ -292,24 +418,37 @@ Network generate_synthetic_network(Parameters param)
 {
     deque<System> initial_systems = generate_initial_systems(param);
     Network N(initial_systems);
-/*
+
     for (size_t i = 0; i < param.number_of_generation_rounds; i++)
     {
         // Pour les systèmes non classe-explorés
             // Génération des voisins extra-composé
+        while (N.class_unexplored_systems.size() > 0)
+            generate_class_neighbourhood(param,N,N.class_unexplored_systems.back());
 
         // Pour un certain nombre de paires de systèmes, génération des voisins extra-classe
+        size_t number_of_pairs = N.number_of_systems * param.percentage_of_pairs_per_round;
+        for (size_t i = 0; i < number_of_pairs; i++)
+        {
+            multiset<System> R = choose_a_pair_of_systems_for_hyperedge(N);
+            generate_hyperedge_from_pair(param,N,R);
+        }
 
         // Pour un certain nombre de systèmes, génération des voisins extra-classe en se splittant
+        size_t number_of_splitting_systems = N.number_of_systems * param.percentage_of_splittings_per_round;
+        for (size_t i = 0; i < number_of_splitting_systems; i++)
+        {
+            System R = choose_system_for_splitting_hyperedge(N);
+            generate_splitting_hyperedge(param,N,R);
+        }
 
         // Pour les systèmes non composé-explorés
             // Génération des voisins intra-composé
         while (N.compound_unexplored_systems.size() > 0)
-        {
             generate_compound_neighbourhood(param,N,N.compound_unexplored_systems.back());
-        }
+
     }
-*/
+
     return N;
 }
 

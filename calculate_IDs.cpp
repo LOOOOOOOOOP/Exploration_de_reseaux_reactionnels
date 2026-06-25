@@ -35,7 +35,23 @@ const string calculate_class_ID(const System S)
     {
         class_ID.append(i->symbol);
     }
-    class_ID.append(" - " + to_string(n) + " electrons");
+
+    if (S.charge > 0)
+    {
+        if (S.charge == 1)
+            class_ID.append("+");
+        else
+            class_ID.append(" " + to_string(S.charge) + "+");
+    }
+    else if (S.charge < 0)
+    {
+        if (S.charge == -1)
+            class_ID.append("-");
+        else
+            class_ID.append(" " + to_string(-S.charge) + "-");
+    }
+
+    class_ID.append(" | " + to_string(n) + " electrons");
     return class_ID;
 }
 
