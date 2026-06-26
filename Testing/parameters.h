@@ -20,6 +20,7 @@ class Parameters
 
     size_t number_of_initial_systems;
     bool initial_systems_are_from_different_compounds;    // les systèmes initiaux appartiennent tous à des composés différents
+    bool limit_number_of_conformers_to_5;
 
     size_t number_of_generation_rounds;
     float percentage_of_pairs_per_round;   // pourcentage des systèmes sélectionnées pour générer un voisin extra-classe à chaque ronde

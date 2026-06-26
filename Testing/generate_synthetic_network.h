@@ -26,8 +26,8 @@ void generate_compound_neighbourhood(Parameters,Network&,System&);
 void generate_class_neighbour(Parameters,Network&,System&);
 void generate_class_neighbourhood(Parameters,Network&,Class&,System&);
 
-std::multiset<System>& choose_a_pair_of_systems_for_hyperedge(Network&);
-System& choose_system_for_splitting_hyperedge(Network&);
+void choose_a_pair_of_systems_for_hyperedge(Network&,std::multiset<System>&);
+System& choose_system_for_splitting_hyperedge(Network&,System&);
 void generate_hyperedge_from_pair(Parameters,Network&,std::pair<System,System>&);
 void generate_splitting_hyperedge(Parameters,Network&,System&);
 

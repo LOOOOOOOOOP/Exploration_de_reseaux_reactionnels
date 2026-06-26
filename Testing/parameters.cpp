@@ -24,6 +24,7 @@ Parameters::Parameters() :
 
     number_of_initial_systems(4),
     initial_systems_are_from_different_compounds(true),
+    limit_number_of_conformers_to_5(true),
 
     number_of_generation_rounds(10),
     percentage_of_pairs_per_round(0.10),
@@ -59,7 +60,7 @@ multiset<Atom> Parameters::atoms_distribution_function()
 
 /////////////////////////////////////////////////////////////////////
 
-string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)
+string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)    // Pas utilisé
 {
     static mt19937 generator(seed);
     string sublayer = "/c";
@@ -155,6 +156,13 @@ size_t Parameters::number_of_compound_neighbours_distribution(System S)
     if (S.atoms.size() < 3 || number_of_non_H < 2)
         return 0;
 
+    if (limit_number_of_conformers_to_5 == true)
+    {
+        static mt19937 generator;
+        uniform_int_distribution<int> distribute(0,5);
+        return(distribute(generator));
+    }
+
     int number_of_rotatable_bonds = max(number_of_non_H - 1,0);
     int average_number_of_neighbours = pow(3,number_of_rotatable_bonds);
     static mt19937 generator(seed);
@@ -168,7 +176,7 @@ size_t Parameters::number_of_compound_neighbours_distribution(System S)
 size_t Parameters::size_of_class(multiset<Atom> atoms)
 {
     size_t number_of_non_H = atoms.size() - atoms.count(Atom("H",1,0.6));
-    size_t number_of_stereocentres = number_of_non_H / 4;
+    size_t number_of_stereocentres = number_of_non_H / 5;
     size_t size_of_class = pow(2,number_of_stereocentres);
     return size_of_class;
 }

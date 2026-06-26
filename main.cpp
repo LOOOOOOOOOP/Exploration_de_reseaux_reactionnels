@@ -115,14 +115,15 @@ int main()
     Parameters param;
     param.seed = time(0);
     param.initial_systems_are_from_different_compounds = true;
-    param.max_number_of_atoms_in_system = 11;
-    param.number_of_generation_rounds = 1;
+    param.max_number_of_atoms_in_system = 14;
+    param.number_of_generation_rounds = 2;  // bug si plus que 2
 
     //System S = generate_system(param);
     //print_system(S);
 
     Network reaction_network = generate_synthetic_network(param);
-    print_network(reaction_network);
+    print_network(reaction_network,false);
+    print_hyperedges(reaction_network);
 
 
     cout << endl << "Hello reaction network!" << endl;

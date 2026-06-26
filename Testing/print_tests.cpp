@@ -1,4 +1,5 @@
 #include "print_tests.h"
+#include "../calculate_IDs.h"
 
 #include <iostream>
 using namespace std;
@@ -8,7 +9,7 @@ void print_system(System S)
     cout << S.system_ID << endl;
 }
 
-void print_network(Network N)
+void print_network(Network N,bool list_conformers)
 {
     cout << "Number of systems discovered: " << N.number_of_systems << endl << endl;
 
@@ -18,19 +19,30 @@ void print_network(Network N)
         cout << "Class: " << it->second.class_ID << endl;
         for (map<const string,Compound>::iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
         {
-            cout << "  Compound: " << it2->second.InChI << endl;
-            if (it2->second.compound_systems.size() > 5) // if compound is big
-                cout << "    (" << it2->second.compound_systems.size() << " conformers)" << endl;
-            else // list conformers
+            cout << "  Compound: " << it2->second.InChI;
+            if (list_conformers == false)
             {
-                for (map<const string,System>::iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
+                int spacing = 54 - it2->second.InChI.length();
+                for (int i = 0; i < spacing; i++)
+                    cout << " ";
+                cout << "(" << it2->second.compound_systems.size() << " conformers)" << endl;
+            }
+            else
+            {
+                cout << endl;
+                if (it2->second.compound_systems.size() > 5) // if compound is big
+                    cout << "    (" << it2->second.compound_systems.size() << " conformers)" << endl;
+                else // list conformers
                 {
-                    cout << "    " << it3->second.system_ID << " | rank in class: " << it3->second.insertion_rank_in_class << " | rank in network: " << it3->second.insertion_rank_in_network << endl;
+                    for (map<const string,System>::iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
+                    {
+                        cout << "    " << it3->second.system_ID << " | rank in class: " << it3->second.insertion_rank_in_class << " | rank in network: " << it3->second.insertion_rank_in_network << endl;
+                    }
                 }
             }
         }
     }
-    cout << endl << "////////////////////////////////////////////////////////////////////////////////" << endl;
+    cout << "////////////////////////////////////////////////////////////////////////////////" << endl;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -59,12 +71,12 @@ void print_hyperedges(Network N)
         cout << "Reactants: ";
         for (multiset<System>::iterator it2 = it->reactants.begin(); it2 != it->reactants.end(); it2++)
         {
-            cout << it2->system_ID << " ";
+            cout << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }
         cout << "| Products: ";
         for (multiset<System>::iterator it2 = it->products.begin(); it2 != it->products.end(); it2++)
         {
-            cout << it2->system_ID << " ";
+            cout << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }
         cout << "| Barriers: " << it->barrier.first << ", " << it->barrier.second;
 

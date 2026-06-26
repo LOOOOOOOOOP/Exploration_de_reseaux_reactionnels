@@ -57,13 +57,6 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
         {
             Class C(number_of_systems,compound_unexplored_systems,class_unexplored_systems,class_ID_P,Pi);
             classes.insert(make_pair(class_ID_P,C));
-            Compound D(InChI_P);
-            update_system_ID(Pi,D);
-            D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
-            C.class_compounds.insert(make_pair(InChI_P,D));
-
-            compound_unexplored_systems.push_back(Pi);
-            class_unexplored_systems.push_back(Pi);
 
             P.erase(i);
             P.insert(Pi);

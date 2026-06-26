@@ -336,9 +336,8 @@ void generate_class_neighbourhood(Parameters param, Network& N, System& S)
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
-multiset<System>& choose_a_pair_of_systems_for_hyperedge(Network& N)
+void choose_a_pair_of_systems_for_hyperedge(Network& N,multiset<System>& R)
 {
-    multiset<System> R;
     static mt19937 generator;
     bool hyperedge_already_exists = false;
 
@@ -373,10 +372,10 @@ multiset<System>& choose_a_pair_of_systems_for_hyperedge(Network& N)
 
         R.insert(S_2);
 
-        // Vérification qu'une hyperarête avec ces réactifs n'existe pas déjà
+        // Vérification qu'une hyperarête avec ces réactifs (ou produits) n'existe pas déjà
         for (set<Hyperedge>::iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
         {
-            if (it->reactants == R)
+            if (it->reactants == R || it->products == R)
             {
                 hyperedge_already_exists = true;
                 R.erase(S_2);
@@ -385,30 +384,108 @@ multiset<System>& choose_a_pair_of_systems_for_hyperedge(Network& N)
         }
     }
     while (hyperedge_already_exists == true);
-
-    return R;
 }
 
 /////////////////////////////////////////////////////////////////////
 
 System& choose_system_for_splitting_hyperedge(Network& N)
 {
-    System R;
+    static mt19937 generator;
+    bool hyperedge_already_exists = false;
+    System* pR;
+
+    do
+    {
+        uniform_int_distribution<int> random_class_index(0,N.classes.size() - 1);
+        int class_index = random_class_index(generator);
+        Class& C = next(N.classes.begin(),class_index)->second;
+
+        uniform_int_distribution<int> random_compound_index(0,C.class_compounds.size() - 1);
+        int compound_index = random_compound_index(generator);
+        Compound& D = next(C.class_compounds.begin(),compound_index)->second;
+
+        uniform_int_distribution<int> random_system_index(0,D.compound_systems.size() - 1);
+        int system_index = random_system_index(generator);
+        pR = &next(D.compound_systems.begin(),system_index)->second;
+
+        // Vérification qu'une hyperarête avec ce réactif (ou produit) n'existe pas déjà
+        for (set<Hyperedge>::iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
+        {
+            multiset<System> Reactants = {*pR};
+            if (it->reactants == Reactants || it->products == Reactants)
+            {
+                hyperedge_already_exists = true;
+                break;
+            }
+        }
+    }
+    while (hyperedge_already_exists == true);
+
+    System& R = *pR;
     return R;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void generate_hyperedge_from_pair(Parameters param, Network& N, multiset<System>&)
+void generate_hyperedge_from_pair(Parameters param, Network& N, multiset<System>& R)
 {
-    return;
+    // Génération du produit
+    multiset<Atom> P_atoms = R.begin()->atoms;
+    for (multiset<Atom>::iterator it = next(R.begin())->atoms.begin(); it != next(R.begin())->atoms.end(); it++)
+        P_atoms.insert(*it);
+    size_t P_n_electrons = R.begin()->n_electrons + next(R.begin())->n_electrons;
+    int P_charge = R.begin()->charge + next(R.begin())->charge;
+    string P_ID = generate_system_ID(param,P_atoms,P_n_electrons,P_charge);
+    System P(P_ID,P_atoms,P_n_electrons,P_charge);
+    multiset<System> Product = {P};
+
+    // Génération de l'hyperarête
+    float RP_barrier = generate_hyperedge_barrier(param,R,Product);
+    float PR_barrier = generate_hyperedge_barrier(param,R,Product);
+    N.add_system_in_network_from_hyperedge(R,Product,RP_barrier,PR_barrier);
 }
 
 /////////////////////////////////////////////////////////////////////
 
 void generate_splitting_hyperedge(Parameters param, Network& N, System& S)
 {
-    return;
+    size_t total_number_of_atoms = S.atoms.size();
+    multiset<Atom> available_atoms = S.atoms;
+    static mt19937 generator;
+
+    // Séparation des atomes
+    uniform_int_distribution<int> distribute_number_of_atoms(1,total_number_of_atoms - 1);
+    size_t number_of_atoms_P1 = distribute_number_of_atoms(generator);
+    multiset<Atom> atoms_P1;
+    for (size_t i = 0; i < number_of_atoms_P1; i++)
+    {
+        uniform_int_distribution<int> distribute_atoms_index(0,available_atoms.size() - 1);
+        size_t index = distribute_atoms_index(generator);
+        atoms_P1.insert(*next(available_atoms.begin(),index));
+        available_atoms.erase(next(available_atoms.begin(),index));
+    }
+    multiset<Atom> atoms_P2 = available_atoms;
+
+    // Séparation de la charge
+    uniform_int_distribution<int> distribute_charge(min(S.charge,0),max(0,S.charge));
+    int charge_P1 = distribute_charge(generator);
+    int charge_P2 = S.charge - charge_P1;
+
+    // Création des produits
+    size_t n_electrons_P1 = generate_number_of_electrons(atoms_P1,charge_P1);
+    string ID_P1 = generate_system_ID(param,atoms_P1,n_electrons_P1,charge_P1);
+    System P1(ID_P1,atoms_P1,n_electrons_P1,charge_P1);
+
+    size_t n_electrons_P2 = generate_number_of_electrons(atoms_P2,charge_P2);
+    string ID_P2 = generate_system_ID(param,atoms_P2,n_electrons_P2,charge_P2);
+    System P2(ID_P2,atoms_P2,n_electrons_P2,charge_P2);
+
+    // Ajout de l'hyperarête
+    multiset<System> R = {S};
+    multiset<System> P = {P1,P2};
+    float RP_barrier = generate_hyperedge_barrier(param,R,P);
+    float PR_barrier = generate_hyperedge_barrier(param,R,P);
+    N.add_system_in_network_from_hyperedge(R,P,RP_barrier,PR_barrier);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -430,10 +507,11 @@ Network generate_synthetic_network(Parameters param)
         size_t number_of_pairs = N.number_of_systems * param.percentage_of_pairs_per_round;
         for (size_t i = 0; i < number_of_pairs; i++)
         {
-            multiset<System> R = choose_a_pair_of_systems_for_hyperedge(N);
+            multiset<System> R;
+            choose_a_pair_of_systems_for_hyperedge(N,R);
             generate_hyperedge_from_pair(param,N,R);
         }
-
+/*
         // Pour un certain nombre de systèmes, génération des voisins extra-classe en se splittant
         size_t number_of_splitting_systems = N.number_of_systems * param.percentage_of_splittings_per_round;
         for (size_t i = 0; i < number_of_splitting_systems; i++)
@@ -441,12 +519,11 @@ Network generate_synthetic_network(Parameters param)
             System R = choose_system_for_splitting_hyperedge(N);
             generate_splitting_hyperedge(param,N,R);
         }
-
+*/  // infinite loop
         // Pour les systèmes non composé-explorés
             // Génération des voisins intra-composé
         while (N.compound_unexplored_systems.size() > 0)
             generate_compound_neighbourhood(param,N,N.compound_unexplored_systems.back());
-
     }
 
     return N;
