@@ -16,7 +16,7 @@ void update_system_ID(System& S,const Compound& C)
 const string calculate_InChI(const System S)
 {
     // Calcul à partir de System_ID
-    int pos = S.system_ID.find(" [");
+    int pos = S.system_ID.find("/[");
     if (pos == string::npos)
         return S.system_ID;
     else
@@ -27,6 +27,7 @@ const string calculate_InChI(const System S)
 
 const string calculate_class_ID(const System S)
 {
+/*
     string class_ID = "";
     multiset<Atom> a = S.atoms;
     size_t n = S.n_electrons;
@@ -52,6 +53,25 @@ const string calculate_class_ID(const System S)
     }
 
     class_ID.append(" | " + to_string(n) + " electrons");
+*/
+    string class_ID = S.system_ID;
+    class_ID.erase(class_ID.find("/"),string::npos);
+
+    if (S.charge > 0)
+    {
+        if (S.charge == 1)
+            class_ID.append("+");
+        else
+            class_ID.append(" " + to_string(S.charge) + "+");
+    }
+    else if (S.charge < 0)
+    {
+        if (S.charge == -1)
+            class_ID.append("-");
+        else
+            class_ID.append(" " + to_string(-S.charge) + "-");
+    }
+
     return class_ID;
 }
 

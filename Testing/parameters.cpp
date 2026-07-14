@@ -22,14 +22,15 @@ Parameters::Parameters() :
     min_number_of_atoms_in_system(1),
     max_number_of_atoms_in_system(15),
 
-    number_of_initial_systems(4),
+    number_of_initial_systems(3),
     initial_systems_are_from_different_compounds(true),
     limit_number_of_conformers_to_5(true),
 
-    number_of_generation_rounds(10),
+    number_of_generation_rounds(5),
     percentage_of_pairs_per_round(0.10),
+    minimum_number_of_pairs_per_round(number_of_initial_systems),
     percentage_of_splittings_per_round(0.10),
-    max_splittedness(3)
+    minimum_number_of_splittings_per_round(number_of_initial_systems)
 {}
 
 /////////////////////////////////////////////////////////////////////
@@ -148,26 +149,36 @@ int Parameters::charge_distribution_function(multiset<Atom> atoms)
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::number_of_compound_neighbours_distribution(System S)
+size_t Parameters::size_of_compound(multiset<Atom> atoms)
 {
-    int number_of_neighbours;
-    int number_of_non_H = S.atoms.size() - S.atoms.count(Atom("H",1,0.6));
-
-    if (S.atoms.size() < 3 || number_of_non_H < 2)
-        return 0;
-
+    int number_of_non_H = atoms.size() - atoms.count(Atom("H",1,0.6));
+    if (atoms.size() < 3 || number_of_non_H < 2)
+        return 1;
     if (limit_number_of_conformers_to_5 == true)
     {
         static mt19937 generator;
-        uniform_int_distribution<int> distribute(0,5);
+        uniform_int_distribution<int> distribute(1,5);
         return(distribute(generator));
     }
-
-    int number_of_rotatable_bonds = max(number_of_non_H - 1,0);
-    int average_number_of_neighbours = pow(3,number_of_rotatable_bonds);
+    size_t number_of_rotatable_bonds = max(number_of_non_H - 1,0);
+    size_t max_size_of_compound = pow(3,number_of_rotatable_bonds);
     static mt19937 generator(seed);
-    uniform_int_distribution<int> distribute(average_number_of_neighbours - number_of_rotatable_bonds, average_number_of_neighbours + number_of_rotatable_bonds);
-    number_of_neighbours = distribute(generator);
+    uniform_int_distribution<int> distribute(max_size_of_compound / 2, max_size_of_compound);
+    size_t size_of_compound = distribute(generator);
+}
+
+/////////////////////////////////////////////////////////////////////
+
+size_t Parameters::number_of_compound_neighbours_distribution(System S)
+{
+    static mt19937 generator(seed);
+    size_t compound_size = size_of_compound(S.atoms);
+
+    if (compound_size == 1)
+        return 0;
+
+    uniform_int_distribution<int> distribute(compound_size / 2, compound_size);
+    size_t number_of_neighbours = distribute(generator);
     return number_of_neighbours;
 }
 
@@ -186,21 +197,21 @@ size_t Parameters::size_of_class(multiset<Atom> atoms)
 size_t Parameters::number_of_class_neighbours_distribution(System S)
 {
     multiset<Atom> atoms = S.atoms;
-    size_t size_class = size_of_class(atoms);
+    size_t class_size = size_of_class(atoms);
     static mt19937 generator(seed);
 
-    if (size_class == 1)
+    if (class_size == 1)
         return 0;
 
-    size_t average_number_of_neighbours = size_class * 3 / 4;
+    size_t average_number_of_neighbours = class_size * 3 / 4;
     if (average_number_of_neighbours < 5)
     {
-        uniform_int_distribution<int> distribute(0, min(average_number_of_neighbours + 5,size_class));
+        uniform_int_distribution<int> distribute(0, min(average_number_of_neighbours + 5,class_size));
         return(distribute(generator));
     }
     else
     {
-        uniform_int_distribution<int> distribute(average_number_of_neighbours - 5, min(average_number_of_neighbours + 5,size_class));
+        uniform_int_distribution<int> distribute(average_number_of_neighbours - 5, min(average_number_of_neighbours + 5,class_size));
         return(distribute(generator));
     }
 }

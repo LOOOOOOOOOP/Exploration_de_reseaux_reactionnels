@@ -23,9 +23,10 @@ class Parameters
     bool limit_number_of_conformers_to_5;
 
     size_t number_of_generation_rounds;
-    float percentage_of_pairs_per_round;   // pourcentage des systèmes sélectionnées pour générer un voisin extra-classe à chaque ronde
+    float percentage_of_pairs_per_round;   // pourcentage de paires de systèmes sélectionnées pour générer un voisin extra-classe à chaque ronde
+    float minimum_number_of_pairs_per_round; // nombre minimal de paires de systèmes sélectionnées pour générer un voisin extra-classe à chaque ronde
     float percentage_of_splittings_per_round;   // pourcentage des systèmes sélectionnés pour se séparer en plusieurs voisins extra-classe à chaque ronde
-    size_t max_splittedness;    // nombre maximal de voisins extra-classe générés à partir d'un système
+    float minimum_number_of_splittings_per_round; // nombre minimal de systèmes sélectionnés pour se séparer en plusieurs voisins extra-classe à chaque ronde
 
 
     Parameters();
@@ -35,7 +36,8 @@ class Parameters
     std::string InChI_hydrogen_sublayer(std::multiset<Atom>);
     int charge_distribution_function(std::multiset<Atom>);
 
-    size_t number_of_compound_neighbours_distribution(System);   // retourne le nombre de voisins intra-composés d'un système
+    size_t size_of_compound(std::multiset<Atom>);
+    size_t number_of_compound_neighbours_distribution(System);
     size_t size_of_class(std::multiset<Atom>);
     size_t number_of_class_neighbours_distribution(System);
 

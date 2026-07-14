@@ -114,12 +114,15 @@ int main()
 
     Parameters param;
     param.seed = time(0);
-    param.initial_systems_are_from_different_compounds = true;
-    param.max_number_of_atoms_in_system = 14;
-    param.number_of_generation_rounds = 2;  // bug si plus que 2
+    param.initial_systems_are_from_different_compounds = false;
+    param.max_number_of_atoms_in_system = 7;
+    param.number_of_generation_rounds = 3;
 
     //System S = generate_system(param);
     //print_system(S);
+
+    //param.percentage_of_pairs_per_round = 0.5;
+    //param.percentage_of_splittings_per_round = 0.25;
 
     Network reaction_network = generate_synthetic_network(param);
     print_network(reaction_network,false);

@@ -34,7 +34,7 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
         P.insertion_rank_in_network = number_of_systems;
         number_of_systems++;
 
-        update_system_ID(P,C);
+        //update_system_ID(P,C);
 
         C.compound_systems.insert(make_pair(P.system_ID,P));
         class_compounds.insert(make_pair(ID,C));
@@ -76,7 +76,7 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
 
         ////// Version sans same_system()
         map<const string,System>::iterator itt = C.compound_systems.find(P.system_ID);
-        if (itt == C.compound_systems.end())
+        if (itt == C.compound_systems.end())    // Si le système n'existe pas
         {
             P.insertion_rank_in_class = number_of_systems_in_class;
             number_of_systems_in_class++;
@@ -84,14 +84,14 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
             P.insertion_rank_in_network = number_of_systems;
             number_of_systems++;
 
-            update_system_ID(P,C);
+            //update_system_ID(P,C);
 
             C.compound_systems.insert(make_pair(P.system_ID,P));
 
             compound_unexplored_systems.push_back(P);
             class_unexplored_systems.push_back(P);
         }
-        else
+        else    // Le système existe déjà
         {
             new_product_system = false;
             already_existing_P = &(itt->second);
@@ -122,7 +122,7 @@ else
             {
                 edges[i].push_back(-1);
             }
-            edges_flux[i].push_back(-1);    ////// bad alloc
+            edges_flux[i].push_back(-1);
         }
 
         // Ajout de la dernière ligne

@@ -45,7 +45,19 @@ void Network::add_system_in_network_from_edge(Class& C, System& R, System& P, fl
 
 void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<System>& P,float RP_barrier,float PR_barrier)
 {
+    // Vérification que l'hyperarête n'existe pas déjà
+    bool combination_hyperedge = R.size() > 1;
+    for (set<Hyperedge>::iterator it4 = hyperedges.begin(); it4 != hyperedges.end(); it4++)
+    {
+        if (combination_hyperedge == true && (it4->reactants == R || it4->products == R))   // Un ensemble de systèmes ne peut s'unir que d'une seule façon
+            return;
+        if ((it4->reactants == R && it4->products == P) || (it4->reactants == P && it4->products == R))
+            return;
+    }
+
     // Ajout des systèmes
+
+/*
     for (set<System>::iterator i = P.begin(); i != P.end(); i++) // Pour chaque produit
     {
         System Pi = *i;
@@ -74,7 +86,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                 number_of_systems++;
 
                 Compound D(InChI_P);
-                update_system_ID(Pi,D);
+                //update_system_ID(Pi,D);
                 D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
                 C.class_compounds.insert(make_pair(InChI_P,D));
 
@@ -122,7 +134,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                     P.erase(i);
                     P.insert(Pi);
                 }
-                */
+                //
                 ////// Version sans same_system()
                 map<const string,System>::iterator it3 = D.compound_systems.find(Pi.system_ID);
                 if (it3 == D.compound_systems.end()) // Si le système n'existe pas
@@ -133,7 +145,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                     (Pi).insertion_rank_in_network = number_of_systems;
                     number_of_systems++;
 
-                    update_system_ID(Pi,D);
+                    //update_system_ID(Pi,D);
 
                     D.compound_systems.insert(make_pair(Pi.system_ID,Pi));
 
@@ -143,7 +155,7 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
                     P.erase(i);
                     P.insert(Pi);
                 }
-                else
+                else    // Le système existe déjà
                 {
                     P.erase(i);
                     P.insert(it3->second);
@@ -152,6 +164,15 @@ void Network::add_system_in_network_from_hyperedge(multiset<System>& R,multiset<
             }
         }
     }
+
+*/
+
+    for (set<System>::iterator i = P.begin(); i != P.end(); i++) // Pour chaque produit
+    {
+        System P_i = *i;
+        add_isolated_system_to_network(P_i);
+    }
+
 
     // Ajout de l'hyperarête
     hyperedges.insert(Hyperedge(R,P,make_pair(RP_barrier,PR_barrier)));
