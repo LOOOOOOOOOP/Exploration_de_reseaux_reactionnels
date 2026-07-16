@@ -88,10 +88,7 @@ void print_hyperedges(Network N)
         {
             cout << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }
-        cout << "| Barriers: " << it->barrier.first << ", " << it->barrier.second;
-
-        cout << endl << "----------------------------------------------------------------------" << endl;
+        cout << "| Barriers: " << it->barrier.first << ", " << it->barrier.second << endl;
+        cout << "----------------------------------------------------------------------" << endl;
     }
-
-
 }

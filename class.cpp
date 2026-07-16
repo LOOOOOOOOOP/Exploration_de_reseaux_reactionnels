@@ -99,8 +99,10 @@ void Class::add_system_in_class_from_edge(size_t& number_of_systems,vector<Syste
         //////
     }
 
+vector<vector<float>>& edges_copy = edges;
+
 // Ajout des arêtes dans la matrice d'adjacence
-if (number_of_systems_in_class == 1)    // Si c'est le premier système dans la classe
+if (number_of_systems_in_class == 1 && new_product_system == true)    // Si c'est le premier système dans la classe
 {
     vector<float> v = {-1};
     edges.push_back(v);

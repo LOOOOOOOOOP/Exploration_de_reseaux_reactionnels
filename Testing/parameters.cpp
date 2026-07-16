@@ -6,7 +6,7 @@
 using namespace std;
 
 Parameters::Parameters() :
-    seed(14),
+    seed(time(0)),
 
     possible_atoms({Atom("H",1,0.6),
                     Atom("C",6,0.25),
@@ -19,14 +19,14 @@ Parameters::Parameters() :
                     Atom("P",15,0.001),
                     Atom("S",16,0.02),
                     Atom("B",5,0.001)}),
-    min_number_of_atoms_in_system(1),
-    max_number_of_atoms_in_system(15),
+    min_number_of_atoms_in_initial_systems(1),
+    max_number_of_atoms_in_initial_systems(7),
 
     number_of_initial_systems(3),
     initial_systems_are_from_different_compounds(true),
     limit_number_of_conformers_to_5(true),
 
-    number_of_generation_rounds(5),
+    number_of_generation_rounds(3),
     percentage_of_pairs_per_round(0.10),
     minimum_number_of_pairs_per_round(number_of_initial_systems),
     percentage_of_splittings_per_round(0.10),
@@ -48,7 +48,7 @@ multiset<Atom> Parameters::atoms_distribution_function()
 
     discrete_distribution<int> atoms_distribution(probabilities.begin(),probabilities.end());
 
-    uniform_int_distribution<int> distribute(min_number_of_atoms_in_system,max_number_of_atoms_in_system);
+    uniform_int_distribution<int> distribute(min_number_of_atoms_in_initial_systems,max_number_of_atoms_in_initial_systems);
     int number_of_atoms = distribute(generator);
 
     for (int i = 0; i < number_of_atoms; i++)

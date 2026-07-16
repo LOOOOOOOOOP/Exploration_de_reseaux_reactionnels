@@ -15,8 +15,8 @@ class Parameters
     unsigned int seed;
 
     std::set<Atom> possible_atoms;
-    size_t min_number_of_atoms_in_system;
-    size_t max_number_of_atoms_in_system;
+    size_t min_number_of_atoms_in_initial_systems;
+    size_t max_number_of_atoms_in_initial_systems;
 
     size_t number_of_initial_systems;
     bool initial_systems_are_from_different_compounds;    // les systèmes initiaux appartiennent tous à des composés différents
