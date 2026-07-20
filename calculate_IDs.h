@@ -1,16 +1,11 @@
 #ifndef calculate_IDs_h
 #define calculate_IDs_h
 
-#include "system.h"
 #include "compound.h"
+#include "system.h"
 
-void update_system_ID(System&,const Compound&); // Rajoute le numéro du conformère au system_ID
-                                                // (à l'instantiation du système, son ID est seulement son InChI)
 
-const std::string calculate_InChI(const System);    // Retrouve le InChI pour déterminer le compound auquel appartient le système
-
-const std::string calculate_class_ID(const System);
-
-bool same_system(const System, const System);   // Indique si les deux systèmes sont indentiques (même conformère)
+const std::string calculate_compound_ID(const System&);  // Retrouve le compound_ID pour déterminer le compound auquel appartient le système
+const std::string calculate_class_ID(const System&);     // Retrouve le class_ID pour déterminer la classe à laquelle appartient le système
 
 #endif

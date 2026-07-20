@@ -1,9 +1,10 @@
 #include "parameters.h"
 
-#include <random>
 #include <iostream>
+#include <random>
 
 using namespace std;
+
 
 Parameters::Parameters() :
     seed(time(0)),
@@ -35,7 +36,7 @@ Parameters::Parameters() :
 
 /////////////////////////////////////////////////////////////////////
 
-multiset<Atom> Parameters::atoms_distribution_function()
+const multiset<Atom> Parameters::generate_atoms () const
 {
     multiset<Atom> atoms;
     static mt19937 generator(seed);
@@ -45,11 +46,10 @@ multiset<Atom> Parameters::atoms_distribution_function()
     {
         probabilities.push_back(it->probability);
     }
-
     discrete_distribution<int> atoms_distribution(probabilities.begin(),probabilities.end());
 
-    uniform_int_distribution<int> distribute(min_number_of_atoms_in_initial_systems,max_number_of_atoms_in_initial_systems);
-    int number_of_atoms = distribute(generator);
+    uniform_int_distribution<int> distribute_number_of_atoms(min_number_of_atoms_in_initial_systems,max_number_of_atoms_in_initial_systems);
+    int number_of_atoms = distribute_number_of_atoms(generator);
 
     for (int i = 0; i < number_of_atoms; i++)
     {
@@ -60,8 +60,8 @@ multiset<Atom> Parameters::atoms_distribution_function()
 }
 
 /////////////////////////////////////////////////////////////////////
-
-string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)    // Pas utilisé
+/* Pas utilisés
+const string& Parameters::compound_ID_connectivity_sublayer(const multiset<Atom>& atoms) const
 {
     static mt19937 generator(seed);
     string sublayer = "/c";
@@ -117,31 +117,27 @@ string Parameters::InChI_connectivity_sublayer(multiset<Atom> atoms)    // Pas u
 
 /////////////////////////////////////////////////////////////////////
 
-string Parameters::InChI_hydrogen_sublayer(multiset<Atom> atoms)    // pas utilisé
+const string& Parameters::compound_ID_hydrogen_sublayer(const multiset<Atom>& atoms) const
 {
     string sublayer = "/h";
 
     return sublayer;
 }
-
+*/
 /////////////////////////////////////////////////////////////////////
 
-int Parameters::charge_distribution_function(multiset<Atom> atoms)
+const int Parameters::generate_charge(const multiset<Atom>& atoms) const
 {
     static mt19937 generator(seed);
     discrete_distribution<> charge_distribution({0.0125,0.0375,0.075,0.75,0.075,0.0375,0.0125});
 
     int number_of_electrons = 0;
     for (multiset<Atom>::iterator it = atoms.begin(); it != atoms.end(); it++)
-    {
         number_of_electrons += it->atomic_number;
-    }
 
     int charge;
     do
-    {
         charge = charge_distribution(generator) - 3;
-    }
     while (number_of_electrons - charge < 0);
 
     return charge;
@@ -149,27 +145,31 @@ int Parameters::charge_distribution_function(multiset<Atom> atoms)
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::size_of_compound(multiset<Atom> atoms)
+const size_t Parameters::size_of_compound(const multiset<Atom>& atoms) const
 {
     int number_of_non_H = atoms.size() - atoms.count(Atom("H",1,0.6));
+
     if (atoms.size() < 3 || number_of_non_H < 2)
         return 1;
+
     if (limit_number_of_conformers_to_5 == true)
     {
         static mt19937 generator;
         uniform_int_distribution<int> distribute(1,5);
         return(distribute(generator));
     }
+
     size_t number_of_rotatable_bonds = max(number_of_non_H - 1,0);
     size_t max_size_of_compound = pow(3,number_of_rotatable_bonds);
     static mt19937 generator(seed);
     uniform_int_distribution<int> distribute(max_size_of_compound / 2, max_size_of_compound);
     size_t size_of_compound = distribute(generator);
+    return size_of_compound;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::number_of_compound_neighbours_distribution(System S)
+const size_t Parameters::number_of_compound_neighbours_distribution(const System& S) const
 {
     static mt19937 generator(seed);
     size_t compound_size = size_of_compound(S.atoms);
@@ -184,7 +184,7 @@ size_t Parameters::number_of_compound_neighbours_distribution(System S)
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::size_of_class(multiset<Atom> atoms)
+const size_t Parameters::size_of_class(const multiset<Atom>& atoms) const
 {
     size_t number_of_non_H = atoms.size() - atoms.count(Atom("H",1,0.6));
     size_t number_of_stereocentres = number_of_non_H / 5;
@@ -194,7 +194,7 @@ size_t Parameters::size_of_class(multiset<Atom> atoms)
 
 /////////////////////////////////////////////////////////////////////
 
-size_t Parameters::number_of_class_neighbours_distribution(System S)
+const size_t Parameters::number_of_class_neighbours_distribution(const System& S) const
 {
     multiset<Atom> atoms = S.atoms;
     size_t class_size = size_of_class(atoms);
@@ -218,7 +218,7 @@ size_t Parameters::number_of_class_neighbours_distribution(System S)
 
 /////////////////////////////////////////////////////////////////////
 
-float Parameters::generate_barrier_between_compound_neighbours(System R,System P)
+const float Parameters::generate_barrier_between_compound_neighbours(const System& R,const System& P) const
 {
     static mt19937 generator(seed);
     uniform_real_distribution<float> distribute(0,5);
@@ -227,7 +227,7 @@ float Parameters::generate_barrier_between_compound_neighbours(System R,System P
 
 /////////////////////////////////////////////////////////////////////
 
-float Parameters::generate_barrier_between_class_neighbours(System R, System P)
+const float Parameters::generate_barrier_between_class_neighbours(const System& R, const System& P) const
 {
     static mt19937 generator(seed);
     uniform_real_distribution<float> distribute(5,50);
@@ -236,10 +236,9 @@ float Parameters::generate_barrier_between_class_neighbours(System R, System P)
 
 /////////////////////////////////////////////////////////////////////
 
-float Parameters::generate_hyperedge_barrier(multiset<System> R, multiset<System> P)
+const float Parameters::generate_hyperedge_barrier(const multiset<System>& R, const multiset<System>& P) const
 {
     static mt19937 generator(seed);
     uniform_real_distribution<float> distribute(50,250);
     return distribute(generator);
 }
-

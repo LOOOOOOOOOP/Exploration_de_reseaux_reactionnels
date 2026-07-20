@@ -1,14 +1,15 @@
-#include "network.h"
-#include "Testing/print_tests.h"
-#include "Testing/parameters.h"
-#include "Testing/generate_synthetic_network.h"
 #include "calculate_IDs.h"
+#include "network.h"
+#include "Testing/generate_synthetic_network.h"
 #include "Testing/output_results.h"
+#include "Testing/parameters.h"
+#include "Testing/print_tests.h"
 
 #include <iostream>
 #include <queue>
 
 using namespace std;
+
 
 int main()
 {
@@ -51,7 +52,7 @@ int main()
 
     // Récupération de CHCHCH2comp2conf2
     Class& C_CHCHCH2comp2conf2 = reaction_network.classes.find(calculate_class_ID(CHCHCH2comp2conf2))->second;
-    Compound& D_CHCHCH2comp2conf2 = C_CHCHCH2comp2conf2.class_compounds.find(calculate_InChI(CHCHCH2comp2conf2))->second;
+    Compound& D_CHCHCH2comp2conf2 = C_CHCHCH2comp2conf2.class_compounds.find(calculate_compound_ID(CHCHCH2comp2conf2))->second;
     System& CHCHCH2comp2conf2_in_network = next(D_CHCHCH2comp2conf2.compound_systems.begin(),1)->second;
 
     // Ajout d'une arête entre CHCHCH2comp2conf1 et CHCHCH2comp2conf2
@@ -115,7 +116,8 @@ int main()
     Network reaction_network = generate_synthetic_network(param);
     print_network(reaction_network,false);
     print_hyperedges(reaction_network);
-    output_all(param,reaction_network,"test");
+    output_all(param,reaction_network,"test");  // crée un fichier dans ./Output
+
 
     cout << endl << "Hello reaction network!" << endl;
     return 0;

@@ -1,9 +1,11 @@
 # include "hyperedge.h"
+
 using namespace std;
+
 
 Hyperedge::Hyperedge(){}
 
-Hyperedge::Hyperedge(multiset<System>& r, multiset<System>& p, pair<float, float> b) :
+Hyperedge::Hyperedge(const multiset<System>& r, const multiset<System>& p, const pair<float, float>& b) :
     reactants(r),
     products(p),
     barrier(b),

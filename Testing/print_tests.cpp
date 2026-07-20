@@ -2,34 +2,39 @@
 #include "../calculate_IDs.h"
 
 #include <iostream>
+
 using namespace std;
 
-void print_system(System S)
+
+void print_system(const System& S)
 {
     cout << S.system_ID << endl;
 }
 
-void print_network(Network N,bool list_conformers)
+void print_network(const Network& N, const bool& list_conformers)
 {
     cout << "Number of systems discovered: " << N.number_of_systems;
+
+    // Comptage du nombre de composés
     size_t number_of_compounds = 0;
-    for (map<string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
+    for (map<string,Class>::const_iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
         number_of_compounds += it->second.class_compounds.size();
     }
     cout << " (" << number_of_compounds << " compounds)" << endl << endl;
 
-    for (map<const string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
+    // Liste des systèmes, regroupés en classes et en composés
+    for (map<const string,Class>::const_iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
         cout << "////////////////////////////////////////////////////////////////////////////////" << endl;
         cout << "Class: " << it->second.class_ID.substr(0,it->second.class_ID.find(" | ")) << endl;
-        for (map<const string,Compound>::iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
+        for (map<const string,Compound>::const_iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
         {
             size_t number_of_conformers = it2->second.compound_systems.size();
-            cout << "  Compound: " << it2->second.InChI;
-            if (list_conformers == false)
+            cout << "  Compound: " << it2->second.compound_ID;
+            if (list_conformers == false)   // Si on ne liste pas le contenu des petits composés
             {
-                int spacing = 54 - it2->second.InChI.length();
+                int spacing = 54 - it2->second.compound_ID.length();
                 for (int i = 0; i < spacing; i++)
                     cout << " ";
                 if (number_of_conformers == 1)
@@ -37,14 +42,14 @@ void print_network(Network N,bool list_conformers)
                 else
                     cout << "(" << number_of_conformers << " conformers)" << endl;
             }
-            else
+            else    // On liste le contenu des petits composés
             {
                 cout << endl;
-                if (number_of_conformers > 5)
+                if (number_of_conformers > 5)   // Si le composé est trop gros
                     cout << "    (" << it2->second.compound_systems.size() << " conformers)" << endl;
-                else // list conformers
+                else // lister les conformères
                 {
-                    for (map<const string,System>::iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
+                    for (map<const string,System>::const_iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
                     {
                         cout << "    " << it3->second.system_ID << " | rank in class: " << it3->second.insertion_rank_in_class << " | rank in network: " << it3->second.insertion_rank_in_network << endl;
                     }
@@ -57,7 +62,7 @@ void print_network(Network N,bool list_conformers)
 
 /////////////////////////////////////////////////////////////////////
 
-void print_class_matrix(Class C)
+void print_class_matrix(const Class& C)
 {
     cout << endl << "Adjacency matrix of class " << C.class_ID << ":" << endl;
     for (size_t i = 0; i < C.edges.size(); i++)
@@ -72,19 +77,19 @@ void print_class_matrix(Class C)
 
 /////////////////////////////////////////////////////////////////////
 
-void print_hyperedges(Network N)
+void print_hyperedges(const Network& N)
 {
     cout << endl << "Hyperedges:" << endl;
     cout << "----------------------------------------------------------------------" << endl;
-    for (set<Hyperedge>::iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
+    for (set<Hyperedge>::const_iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
     {
         cout << "Reactants: ";
-        for (multiset<System>::iterator it2 = it->reactants.begin(); it2 != it->reactants.end(); it2++)
+        for (multiset<System>::const_iterator it2 = it->reactants.begin(); it2 != it->reactants.end(); it2++)
         {
             cout << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }
         cout << "| Products: ";
-        for (multiset<System>::iterator it2 = it->products.begin(); it2 != it->products.end(); it2++)
+        for (multiset<System>::const_iterator it2 = it->products.begin(); it2 != it->products.end(); it2++)
         {
             cout << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }

@@ -1,9 +1,9 @@
-Wed Jul 15 14:53:43 2026
+Mon Jul 20 14:19:03 2026
 
-66 systems discovered (31 compounds)
+89 systems discovered (36 compounds)
 
 ------------------- Parameters -------------------
-Seed: 1784141623
+Seed: 1784571543
 Possible atoms: B Br C Cl F H I N O P S 
 Min number of atoms in initial systems: 1
 Max number of atoms in initial systems: 7
@@ -18,318 +18,402 @@ Minimum number of splittings per round: 3
 --------------------------------------------------
 
 -------------------- Systems ---------------------
-Class: C
-  Compound: C/compound#1
-    C/compound#1/[1]
+Class: C 2+
+  Compound: C/q+2/compound#1
+    C/q+2/compound#1/[1]
 --------------------------------------------------
-Class: C-
-  Compound: C/q-1/compound#1
-    C/q-1/compound#1/[1]
+Class: CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS 4+
+  Compound: CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4
+    CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[1]
+    CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[2]
+    CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[4]
 --------------------------------------------------
-Class: CC
-  Compound: CC/compound#1
-    CC/compound#1/[1]
+Class: CCCCHHHHHHHHHHHHNOOOOOOS 3+
+  Compound: CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1
+    CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1]
+    CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2]
+    CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3]
+    CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[4]
+    CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[5]
 --------------------------------------------------
-Class: CCCCCHHHFFNNO-
-  Compound: CCCCCHHHFFNNO/q-1/compound#4
-    CCCCCHHHFFNNO/q-1/compound#4/[1]
-    CCCCCHHHFFNNO/q-1/compound#4/[2]
+Class: CCCCHHHHHHHHOO 2+
+  Compound: CCCCHHHHHHHHOO/q+2/compound#1
+    CCCCHHHHHHHHOO/q+2/compound#1/[1]
+    CCCCHHHHHHHHOO/q+2/compound#1/[2]
+    CCCCHHHHHHHHOO/q+2/compound#1/[4]
 --------------------------------------------------
-Class: CCCCHHFN 3-
-  Compound: CCCCHHFN/q-3/compound#2
-    CCCCHHFN/q-3/compound#2/[1]
-    CCCCHHFN/q-3/compound#2/[2]
-    CCCCHHFN/q-3/compound#2/[4]
+Class: CCCHHH+
+  Compound: CCCHHH/q+1/compound#1
+    CCCHHH/q+1/compound#1/[1]
 --------------------------------------------------
-Class: CCCCHHHFFNNO
-  Compound: CCCCHHHFFNNO/compound#1
-    CCCCHHHFFNNO/compound#1/[1]
-    CCCCHHHFFNNO/compound#1/[2]
-    CCCCHHHFFNNO/compound#1/[3]
-    CCCCHHHFFNNO/compound#1/[4]
-    CCCCHHHFFNNO/compound#1/[5]
-  Compound: CCCCHHHFFNNO/compound#2
-    CCCCHHHFFNNO/compound#2/[1]
-    CCCCHHHFFNNO/compound#2/[2]
-    CCCCHHHFFNNO/compound#2/[3]
-    CCCCHHHFFNNO/compound#2/[4]
-    CCCCHHHFFNNO/compound#2/[5]
+Class: CCCHHHHHHHHOO
+  Compound: CCCHHHHHHHHOO/compound#2
+    CCCHHHHHHHHOO/compound#2/[2]
+    CCCHHHHHHHHOO/compound#2/[3]
 --------------------------------------------------
-Class: CCCCHHHFN 3-
-  Compound: CCCCHHHFN/q-3/compound#2
-    CCCCHHHFN/q-3/compound#2/[2]
+Class: CCHHHHH+
+  Compound: CCHHHHH/q+1/compound#1
+    CCHHHHH/q+1/compound#1/[1]
+    CCHHHHH/q+1/compound#1/[2]
+    CCHHHHH/q+1/compound#1/[3]
+    CCHHHHH/q+1/compound#1/[4]
+    CCHHHHH/q+1/compound#1/[5]
 --------------------------------------------------
-Class: CCCCHHHHFNO-
-  Compound: CCCCHHHHFNO/q-1/compound#1
-    CCCCHHHHFNO/q-1/compound#1/[1]
+Class: CCHHHHHHHHNOOOOOS 2+
+  Compound: CCHHHHHHHHNOOOOOS/q+2/compound#1
+    CCHHHHHHHHNOOOOOS/q+2/compound#1/[1]
+    CCHHHHHHHHNOOOOOS/q+2/compound#1/[2]
+    CCHHHHHHHHNOOOOOS/q+2/compound#1/[3]
+    CCHHHHHHHHNOOOOOS/q+2/compound#1/[4]
+  Compound: CCHHHHHHHHNOOOOOS/q+2/compound#2
+    CCHHHHHHHHNOOOOOS/q+2/compound#2/[1]
 --------------------------------------------------
-Class: CCCFN 2-
-  Compound: CCCFN/q-2/compound#1
-    CCCFN/q-2/compound#1/[1]
-    CCCFN/q-2/compound#1/[2]
-    CCCFN/q-2/compound#1/[3]
-    CCCFN/q-2/compound#1/[4]
-    CCCFN/q-2/compound#1/[5]
-  Compound: CCCFN/q-2/compound#2
-    CCCFN/q-2/compound#2/[1]
-    CCCFN/q-2/compound#2/[2]
+Class: CCHHHHHHHHNOOOS 2+
+  Compound: CCHHHHHHHHNOOOS/q+2/compound#1
+    CCHHHHHHHHNOOOS/q+2/compound#1/[1]
+    CCHHHHHHHHNOOOS/q+2/compound#1/[2]
+    CCHHHHHHHHNOOOS/q+2/compound#1/[3]
+    CCHHHHHHHHNOOOS/q+2/compound#1/[5]
+  Compound: CCHHHHHHHHNOOOS/q+2/compound#2
+    CCHHHHHHHHNOOOS/q+2/compound#2/[1]
+    CCHHHHHHHHNOOOS/q+2/compound#2/[2]
+    CCHHHHHHHHNOOOS/q+2/compound#2/[3]
+    CCHHHHHHHHNOOOS/q+2/compound#2/[4]
+    CCHHHHHHHHNOOOS/q+2/compound#2/[5]
 --------------------------------------------------
-Class: CCCHFN 2-
-  Compound: CCCHFN/q-2/compound#1
-    CCCHFN/q-2/compound#1/[1]
-  Compound: CCCHFN/q-2/compound#2
-    CCCHFN/q-2/compound#2/[1]
-    CCCHFN/q-2/compound#2/[2]
-    CCCHFN/q-2/compound#2/[3]
-    CCCHFN/q-2/compound#2/[4]
-    CCCHFN/q-2/compound#2/[5]
+Class: CCHHHHHHHOOOO+
+  Compound: CCHHHHHHHOOOO/q+1/compound#1
+    CCHHHHHHHOOOO/q+1/compound#1/[1]
+    CCHHHHHHHOOOO/q+1/compound#1/[2]
+    CCHHHHHHHOOOO/q+1/compound#1/[3]
+    CCHHHHHHHOOOO/q+1/compound#1/[4]
 --------------------------------------------------
-Class: CCCHH 3-
-  Compound: CCCHH/q-3/compound#1
-    CCCHH/q-3/compound#1/[1]
+Class: CCHHHHHHNOOO+
+  Compound: CCHHHHHHNOOO/q+1/compound#1
+    CCHHHHHHNOOO/q+1/compound#1/[1]
+    CCHHHHHHNOOO/q+1/compound#1/[3]
+    CCHHHHHHNOOO/q+1/compound#1/[4]
 --------------------------------------------------
-Class: CCCHHHFFNNO
-  Compound: CCCHHHFFNNO/compound#1
-    CCCHHHFFNNO/compound#1/[2]
+Class: CCHHHHHHNOOS 2+
+  Compound: CCHHHHHHNOOS/q+2/compound#1
+    CCHHHHHHNOOS/q+2/compound#1/[1]
+    CCHHHHHHNOOS/q+2/compound#1/[2]
+    CCHHHHHHNOOS/q+2/compound#1/[3]
+    CCHHHHHHNOOS/q+2/compound#1/[4]
+  Compound: CCHHHHHHNOOS/q+2/compound#2
+    CCHHHHHHNOOS/q+2/compound#2/[1]
+    CCHHHHHHNOOS/q+2/compound#2/[2]
+    CCHHHHHHNOOS/q+2/compound#2/[3]
+    CCHHHHHHNOOS/q+2/compound#2/[4]
+    CCHHHHHHNOOS/q+2/compound#2/[5]
 --------------------------------------------------
-Class: CCHH 2-
-  Compound: CCHH/q-2/compound#1
-    CCHH/q-2/compound#1/[1]
-    CCHH/q-2/compound#1/[2]
-    CCHH/q-2/compound#1/[3]
+Class: CCHHHHHHOO+
+  Compound: CCHHHHHHOO/q+1/compound#1
+    CCHHHHHHOO/q+1/compound#1/[5]
 --------------------------------------------------
-Class: CCHH-
-  Compound: CCHH/q-1/compound#1
-    CCHH/q-1/compound#1/[1]
-    CCHH/q-1/compound#1/[2]
-    CCHH/q-1/compound#1/[3]
+Class: CCHHHHO+
+  Compound: CCHHHHO/q+1/compound#1
+    CCHHHHO/q+1/compound#1/[1]
+    CCHHHHO/q+1/compound#1/[2]
+    CCHHHHO/q+1/compound#1/[5]
 --------------------------------------------------
-Class: CCHHFNO+
-  Compound: CCHHFNO/q+1/compound#1
-    CCHHFNO/q+1/compound#1/[1]
-    CCHHFNO/q+1/compound#1/[2]
-    CCHHFNO/q+1/compound#1/[3]
-    CCHHFNO/q+1/compound#1/[5]
-  Compound: CCHHFNO/q+1/compound#2
-    CCHHFNO/q+1/compound#2/[1]
-    CCHHFNO/q+1/compound#2/[2]
-    CCHHFNO/q+1/compound#2/[3]
-    CCHHFNO/q+1/compound#2/[4]
-    CCHHFNO/q+1/compound#2/[5]
+Class: CCHHHHOO
+  Compound: CCHHHHOO/compound#1
+    CCHHHHOO/compound#1/[1]
+    CCHHHHOO/compound#1/[2]
+    CCHHHHOO/compound#1/[4]
 --------------------------------------------------
-Class: CCHHHFN
-  Compound: CCHHHFN/compound#1
-    CCHHHFN/compound#1/[1]
-    CCHHHFN/compound#1/[2]
---------------------------------------------------
-Class: CCHHHFNO+
-  Compound: CCHHHFNO/q+1/compound#1
-    CCHHHFNO/q+1/compound#1/[1]
-  Compound: CCHHHFNO/q+1/compound#2
-    CCHHHFNO/q+1/compound#2/[1]
-    CCHHHFNO/q+1/compound#2/[3]
-    CCHHHFNO/q+1/compound#2/[4]
---------------------------------------------------
-Class: CCHHHH 2-
-  Compound: CCHHHH/q-2/compound#1
-    CCHHHH/q-2/compound#1/[1]
-    CCHHHH/q-2/compound#1/[2]
---------------------------------------------------
-Class: CH-
-  Compound: CH/q-1/compound#1
-    CH/q-1/compound#1/[1]
---------------------------------------------------
-Class: CHH 2-
-  Compound: CHH/q-2/compound#1
-    CHH/q-2/compound#1/[1]
+Class: CHHHHHOO+
+  Compound: CHHHHHOO/q+1/compound#1
+    CHHHHHOO/q+1/compound#1/[1]
+    CHHHHHOO/q+1/compound#1/[2]
+    CHHHHHOO/q+1/compound#1/[3]
 --------------------------------------------------
 Class: H
   Compound: H/compound#1
     H/compound#1/[1]
 --------------------------------------------------
-Class: H-
-  Compound: H/q-1/compound#1
-    H/q-1/compound#1/[1]
+Class: H+
+  Compound: H/q+1/compound#1
+    H/q+1/compound#1/[1]
 --------------------------------------------------
 Class: HH
   Compound: HH/compound#1
     HH/compound#1/[1]
 --------------------------------------------------
-Class: HH 2-
-  Compound: HH/q-2/compound#1
-    HH/q-2/compound#1/[1]
+Class: HHHHNOOS+
+  Compound: HHHHNOOS/q+1/compound#1
+    HHHHNOOS/q+1/compound#1/[1]
+    HHHHNOOS/q+1/compound#1/[2]
+    HHHHNOOS/q+1/compound#1/[3]
 --------------------------------------------------
-Class: HH-
-  Compound: HH/q-1/compound#1
-    HH/q-1/compound#1/[1]
+Class: HHNOS+
+  Compound: HHNOS/q+1/compound#1
+    HHNOS/q+1/compound#1/[1]
 --------------------------------------------------
-Class: O+
-  Compound: O/q+1/compound#1
-    O/q+1/compound#1/[1]
+Class: HHNS 2+
+  Compound: HHNS/q+2/compound#1
+    HHNS/q+2/compound#1/[3]
+--------------------------------------------------
+Class: HHO
+  Compound: HHO/compound#1
+    HHO/compound#1/[1]
+--------------------------------------------------
+Class: HHS+
+  Compound: HHS/q+1/compound#1
+    HHS/q+1/compound#1/[1]
+--------------------------------------------------
+Class: HN+
+  Compound: HN/q+1/compound#1
+    HN/q+1/compound#1/[1]
+--------------------------------------------------
+Class: HNS+
+  Compound: HNS/q+1/compound#1
+    HNS/q+1/compound#1/[1]
+    HNS/q+1/compound#1/[2]
+    HNS/q+1/compound#1/[4]
+    HNS/q+1/compound#1/[5]
+--------------------------------------------------
+Class: HOO
+  Compound: HOO/compound#1
+    HOO/compound#1/[1]
+    HOO/compound#1/[2]
+    HOO/compound#1/[3]
+    HOO/compound#1/[5]
+--------------------------------------------------
+Class: HOS
+  Compound: HOS/compound#1
+    HOS/compound#1/[1]
+    HOS/compound#1/[2]
+    HOS/compound#1/[3]
+    HOS/compound#1/[4]
+    HOS/compound#1/[5]
+--------------------------------------------------
+Class: HS
+  Compound: HS/compound#1
+    HS/compound#1/[1]
+--------------------------------------------------
+Class: NO
+  Compound: NO/compound#1
+    NO/compound#1/[1]
+--------------------------------------------------
+Class: O
+  Compound: O/compound#1
+    O/compound#1/[1]
+--------------------------------------------------
+Class: OO
+  Compound: OO/compound#1
+    OO/compound#1/[1]
+--------------------------------------------------
+Class: S+
+  Compound: S/q+1/compound#1
+    S/q+1/compound#1/[1]
 --------------------------------------------------
 
 --------------------- Edges ----------------------
-CCCCCHHHFFNNO/q-1/compound#4/[1] | CCCCCHHHFFNNO/q-1/compound#4/[2] | 4.9995
-CCCCCHHHFFNNO/q-1/compound#4/[2] | CCCCCHHHFFNNO/q-1/compound#4/[1] | 0.132923
-CCCCHHFN/q-3/compound#2/[1] | CCCCHHFN/q-3/compound#2/[2] | 4.58149
-CCCCHHFN/q-3/compound#2/[2] | CCCCHHFN/q-3/compound#2/[1] | 0.939487
-CCCCHHFN/q-3/compound#2/[2] | CCCCHHFN/q-3/compound#2/[4] | 0.777522
-CCCCHHFN/q-3/compound#2/[4] | CCCCHHFN/q-3/compound#2/[2] | 3.10562
-CCCCHHHFFNNO/compound#2/[4] | CCCCHHHFFNNO/compound#2/[1] | 1.55262
-CCCCHHHFFNNO/compound#2/[4] | CCCCHHHFFNNO/compound#2/[5] | 41.3463
-CCCCHHHFFNNO/compound#2/[1] | CCCCHHHFFNNO/compound#2/[4] | 4.53906
-CCCCHHHFFNNO/compound#2/[1] | CCCCHHHFFNNO/compound#1/[1] | 17.7767
-CCCCHHHFFNNO/compound#2/[1] | CCCCHHHFFNNO/compound#2/[5] | 3.31816
-CCCCHHHFFNNO/compound#1/[1] | CCCCHHHFFNNO/compound#2/[1] | 46.6755
-CCCCHHHFFNNO/compound#1/[1] | CCCCHHHFFNNO/compound#1/[3] | 31.1402
-CCCCHHHFFNNO/compound#1/[1] | CCCCHHHFFNNO/compound#1/[2] | 38.7898
-CCCCHHHFFNNO/compound#1/[1] | CCCCHHHFFNNO/compound#1/[4] | 20.6325
-CCCCHHHFFNNO/compound#1/[3] | CCCCHHHFFNNO/compound#1/[1] | 21.7789
-CCCCHHHFFNNO/compound#1/[3] | CCCCHHHFFNNO/compound#1/[2] | 12.4197
-CCCCHHHFFNNO/compound#1/[3] | CCCCHHHFFNNO/compound#2/[2] | 29.7554
-CCCCHHHFFNNO/compound#1/[2] | CCCCHHHFFNNO/compound#1/[1] | 30.9221
-CCCCHHHFFNNO/compound#1/[2] | CCCCHHHFFNNO/compound#1/[3] | 19.6611
-CCCCHHHFFNNO/compound#1/[2] | CCCCHHHFFNNO/compound#1/[5] | 1.7701
-CCCCHHHFFNNO/compound#1/[2] | CCCCHHHFFNNO/compound#1/[4] | 24.325
-CCCCHHHFFNNO/compound#1/[5] | CCCCHHHFFNNO/compound#1/[2] | 2.47501
-CCCCHHHFFNNO/compound#1/[5] | CCCCHHHFFNNO/compound#1/[4] | 3.27291
-CCCCHHHFFNNO/compound#1/[4] | CCCCHHHFFNNO/compound#1/[1] | 13.3833
-CCCCHHHFFNNO/compound#1/[4] | CCCCHHHFFNNO/compound#1/[2] | 36.3374
-CCCCHHHFFNNO/compound#1/[4] | CCCCHHHFFNNO/compound#1/[5] | 2.61872
-CCCCHHHFFNNO/compound#2/[2] | CCCCHHHFFNNO/compound#1/[3] | 38.4511
-CCCCHHHFFNNO/compound#2/[2] | CCCCHHHFFNNO/compound#2/[5] | 4.40716
-CCCCHHHFFNNO/compound#2/[2] | CCCCHHHFFNNO/compound#2/[3] | 4.4416
-CCCCHHHFFNNO/compound#2/[5] | CCCCHHHFFNNO/compound#2/[4] | 30.6661
-CCCCHHHFFNNO/compound#2/[5] | CCCCHHHFFNNO/compound#2/[1] | 4.35824
-CCCCHHHFFNNO/compound#2/[5] | CCCCHHHFFNNO/compound#2/[2] | 4.6897
-CCCCHHHFFNNO/compound#2/[5] | CCCCHHHFFNNO/compound#2/[3] | 1.83523
-CCCCHHHFFNNO/compound#2/[3] | CCCCHHHFFNNO/compound#2/[2] | 1.61079
-CCCCHHHFFNNO/compound#2/[3] | CCCCHHHFFNNO/compound#2/[5] | 0.345659
-CCCFN/q-2/compound#1/[1] | CCCFN/q-2/compound#1/[2] | 45.8515
-CCCFN/q-2/compound#1/[1] | CCCFN/q-2/compound#1/[3] | 0.751029
-CCCFN/q-2/compound#1/[1] | CCCFN/q-2/compound#1/[4] | 1.87953
-CCCFN/q-2/compound#1/[1] | CCCFN/q-2/compound#2/[2] | 44.5629
-CCCFN/q-2/compound#1/[1] | CCCFN/q-2/compound#1/[5] | 40.8564
-CCCFN/q-2/compound#1/[2] | CCCFN/q-2/compound#1/[1] | 18.9736
-CCCFN/q-2/compound#1/[2] | CCCFN/q-2/compound#1/[3] | 0.431512
-CCCFN/q-2/compound#1/[3] | CCCFN/q-2/compound#1/[1] | 1.31614
-CCCFN/q-2/compound#1/[3] | CCCFN/q-2/compound#1/[2] | 2.67432
-CCCFN/q-2/compound#1/[3] | CCCFN/q-2/compound#1/[4] | 40.0149
-CCCFN/q-2/compound#1/[3] | CCCFN/q-2/compound#2/[1] | 40.1665
-CCCFN/q-2/compound#1/[4] | CCCFN/q-2/compound#1/[1] | 3.83713
-CCCFN/q-2/compound#1/[4] | CCCFN/q-2/compound#1/[3] | 40.3851
-CCCFN/q-2/compound#1/[4] | CCCFN/q-2/compound#2/[2] | 28.3691
-CCCFN/q-2/compound#2/[1] | CCCFN/q-2/compound#1/[3] | 48.3637
-CCCFN/q-2/compound#2/[1] | CCCFN/q-2/compound#2/[2] | 2.41311
-CCCFN/q-2/compound#2/[1] | CCCFN/q-2/compound#1/[5] | 5.08661
-CCCFN/q-2/compound#2/[2] | CCCFN/q-2/compound#1/[1] | 42.5229
-CCCFN/q-2/compound#2/[2] | CCCFN/q-2/compound#1/[4] | 8.53806
-CCCFN/q-2/compound#2/[2] | CCCFN/q-2/compound#2/[1] | 1.46358
-CCCFN/q-2/compound#2/[2] | CCCFN/q-2/compound#1/[5] | 6.87837
-CCCFN/q-2/compound#1/[5] | CCCFN/q-2/compound#1/[1] | 13.3788
-CCCFN/q-2/compound#1/[5] | CCCFN/q-2/compound#2/[1] | 34.2782
-CCCFN/q-2/compound#1/[5] | CCCFN/q-2/compound#2/[2] | 17.442
-CCCHFN/q-2/compound#2/[5] | CCCHFN/q-2/compound#2/[4] | 3.89054
-CCCHFN/q-2/compound#2/[5] | CCCHFN/q-2/compound#2/[1] | 3.90738
-CCCHFN/q-2/compound#2/[5] | CCCHFN/q-2/compound#2/[3] | 0.00962365
-CCCHFN/q-2/compound#2/[4] | CCCHFN/q-2/compound#2/[5] | 3.93168
-CCCHFN/q-2/compound#2/[4] | CCCHFN/q-2/compound#2/[1] | 4.47694
-CCCHFN/q-2/compound#2/[4] | CCCHFN/q-2/compound#2/[2] | 0.576068
-CCCHFN/q-2/compound#2/[4] | CCCHFN/q-2/compound#2/[3] | 3.80397
-CCCHFN/q-2/compound#2/[4] | CCCHFN/q-2/compound#1/[1] | 27.1853
-CCCHFN/q-2/compound#2/[1] | CCCHFN/q-2/compound#2/[5] | 4.81819
-CCCHFN/q-2/compound#2/[1] | CCCHFN/q-2/compound#2/[4] | 4.15253
-CCCHFN/q-2/compound#2/[1] | CCCHFN/q-2/compound#2/[2] | 43.9973
-CCCHFN/q-2/compound#2/[1] | CCCHFN/q-2/compound#2/[3] | 1.45781
-CCCHFN/q-2/compound#2/[2] | CCCHFN/q-2/compound#2/[4] | 3.62526
-CCCHFN/q-2/compound#2/[2] | CCCHFN/q-2/compound#2/[1] | 39.2357
-CCCHFN/q-2/compound#2/[2] | CCCHFN/q-2/compound#2/[3] | 4.16921
-CCCHFN/q-2/compound#2/[2] | CCCHFN/q-2/compound#1/[1] | 20.7709
-CCCHFN/q-2/compound#2/[3] | CCCHFN/q-2/compound#2/[5] | 3.25314
-CCCHFN/q-2/compound#2/[3] | CCCHFN/q-2/compound#2/[4] | 4.33304
-CCCHFN/q-2/compound#2/[3] | CCCHFN/q-2/compound#2/[1] | 0.399217
-CCCHFN/q-2/compound#2/[3] | CCCHFN/q-2/compound#2/[2] | 4.39587
-CCCHFN/q-2/compound#1/[1] | CCCHFN/q-2/compound#2/[4] | 25.6418
-CCCHFN/q-2/compound#1/[1] | CCCHFN/q-2/compound#2/[2] | 36.683
-CCHH/q-2/compound#1/[1] | CCHH/q-2/compound#1/[2] | 1.45952
-CCHH/q-2/compound#1/[1] | CCHH/q-2/compound#1/[3] | 1.19533
-CCHH/q-2/compound#1/[2] | CCHH/q-2/compound#1/[1] | 3.95239
-CCHH/q-2/compound#1/[2] | CCHH/q-2/compound#1/[3] | 3.50624
-CCHH/q-2/compound#1/[3] | CCHH/q-2/compound#1/[1] | 4.61481
-CCHH/q-2/compound#1/[3] | CCHH/q-2/compound#1/[2] | 0.25449
-CCHH/q-1/compound#1/[3] | CCHH/q-1/compound#1/[2] | 3.14712
-CCHH/q-1/compound#1/[3] | CCHH/q-1/compound#1/[1] | 2.5612
-CCHH/q-1/compound#1/[2] | CCHH/q-1/compound#1/[3] | 1.52306
-CCHH/q-1/compound#1/[2] | CCHH/q-1/compound#1/[1] | 4.0354
-CCHH/q-1/compound#1/[1] | CCHH/q-1/compound#1/[3] | 4.69178
-CCHH/q-1/compound#1/[1] | CCHH/q-1/compound#1/[2] | 0.118244
-CCHHFNO/q+1/compound#1/[2] | CCHHFNO/q+1/compound#2/[5] | 8.2257
-CCHHFNO/q+1/compound#1/[2] | CCHHFNO/q+1/compound#1/[3] | 3.37115
-CCHHFNO/q+1/compound#1/[2] | CCHHFNO/q+1/compound#1/[5] | 0.64516
-CCHHFNO/q+1/compound#2/[5] | CCHHFNO/q+1/compound#1/[2] | 21.1215
-CCHHFNO/q+1/compound#2/[5] | CCHHFNO/q+1/compound#2/[3] | 1.75232
-CCHHFNO/q+1/compound#2/[5] | CCHHFNO/q+1/compound#2/[4] | 2.88257
-CCHHFNO/q+1/compound#2/[5] | CCHHFNO/q+1/compound#2/[2] | 1.41963
-CCHHFNO/q+1/compound#2/[3] | CCHHFNO/q+1/compound#2/[5] | 3.52033
-CCHHFNO/q+1/compound#2/[3] | CCHHFNO/q+1/compound#2/[4] | 1.73694
-CCHHFNO/q+1/compound#2/[3] | CCHHFNO/q+1/compound#2/[2] | 1.62901
-CCHHFNO/q+1/compound#2/[3] | CCHHFNO/q+1/compound#2/[1] | 1.86433
-CCHHFNO/q+1/compound#2/[3] | CCHHFNO/q+1/compound#1/[5] | 37.6273
-CCHHFNO/q+1/compound#2/[4] | CCHHFNO/q+1/compound#2/[5] | 3.00288
-CCHHFNO/q+1/compound#2/[4] | CCHHFNO/q+1/compound#2/[3] | 0.93148
-CCHHFNO/q+1/compound#2/[4] | CCHHFNO/q+1/compound#2/[1] | 2.14723
-CCHHFNO/q+1/compound#2/[2] | CCHHFNO/q+1/compound#2/[5] | 4.63061
-CCHHFNO/q+1/compound#2/[2] | CCHHFNO/q+1/compound#2/[3] | 0.82441
-CCHHFNO/q+1/compound#2/[2] | CCHHFNO/q+1/compound#2/[1] | 0.371255
-CCHHFNO/q+1/compound#2/[2] | CCHHFNO/q+1/compound#1/[5] | 45.2925
-CCHHFNO/q+1/compound#2/[1] | CCHHFNO/q+1/compound#2/[3] | 2.90446
-CCHHFNO/q+1/compound#2/[1] | CCHHFNO/q+1/compound#2/[4] | 3.48193
-CCHHFNO/q+1/compound#2/[1] | CCHHFNO/q+1/compound#2/[2] | 4.98636
-CCHHFNO/q+1/compound#2/[1] | CCHHFNO/q+1/compound#1/[3] | 8.59295
-CCHHFNO/q+1/compound#2/[1] | CCHHFNO/q+1/compound#1/[1] | 49.8772
-CCHHFNO/q+1/compound#1/[3] | CCHHFNO/q+1/compound#1/[2] | 3.40269
-CCHHFNO/q+1/compound#1/[3] | CCHHFNO/q+1/compound#2/[1] | 18.1203
-CCHHFNO/q+1/compound#1/[3] | CCHHFNO/q+1/compound#1/[5] | 3.18687
-CCHHFNO/q+1/compound#1/[3] | CCHHFNO/q+1/compound#1/[1] | 1.07116
-CCHHFNO/q+1/compound#1/[5] | CCHHFNO/q+1/compound#1/[2] | 4.58156
-CCHHFNO/q+1/compound#1/[5] | CCHHFNO/q+1/compound#2/[3] | 10.1846
-CCHHFNO/q+1/compound#1/[5] | CCHHFNO/q+1/compound#2/[2] | 42.3728
-CCHHFNO/q+1/compound#1/[5] | CCHHFNO/q+1/compound#1/[3] | 4.13868
-CCHHFNO/q+1/compound#1/[1] | CCHHFNO/q+1/compound#2/[1] | 8.34129
-CCHHFNO/q+1/compound#1/[1] | CCHHFNO/q+1/compound#1/[3] | 4.42178
-CCHHHFN/compound#1/[2] | CCHHHFN/compound#1/[1] | 3.71678
-CCHHHFN/compound#1/[1] | CCHHHFN/compound#1/[2] | 2.7506
-CCHHHFNO/q+1/compound#2/[1] | CCHHHFNO/q+1/compound#2/[3] | 48.345
-CCHHHFNO/q+1/compound#2/[1] | CCHHHFNO/q+1/compound#1/[1] | 40.5715
-CCHHHFNO/q+1/compound#2/[1] | CCHHHFNO/q+1/compound#2/[4] | 0.870823
-CCHHHFNO/q+1/compound#2/[3] | CCHHHFNO/q+1/compound#2/[1] | 11.5188
-CCHHHFNO/q+1/compound#2/[3] | CCHHHFNO/q+1/compound#2/[4] | 25.5404
-CCHHHFNO/q+1/compound#1/[1] | CCHHHFNO/q+1/compound#2/[1] | 18.1357
-CCHHHFNO/q+1/compound#1/[1] | CCHHHFNO/q+1/compound#2/[4] | 34.4801
-CCHHHFNO/q+1/compound#2/[4] | CCHHHFNO/q+1/compound#2/[1] | 1.53796
-CCHHHFNO/q+1/compound#2/[4] | CCHHHFNO/q+1/compound#2/[3] | 13.6855
-CCHHHFNO/q+1/compound#2/[4] | CCHHHFNO/q+1/compound#1/[1] | 6.91542
-CCHHHH/q-2/compound#1/[2] | CCHHHH/q-2/compound#1/[1] | 2.31894
-CCHHHH/q-2/compound#1/[1] | CCHHHH/q-2/compound#1/[2] | 3.25127
+CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[1] | CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[2] | 4.90885
+CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[2] | CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[1] | 0.127073
+CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[2] | CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[4] | 0.366161
+CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[4] | CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS/q+4/compound#4/[2] | 0.886829
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[5] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2] | 1.37636
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[5] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | 3.4276
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[5] | 1.38988
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | 0.357391
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3] | 1.24264
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[5] | 3.41568
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2] | 2.29227
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3] | 1.94064
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[4] | 3.25169
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[2] | 1.29243
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | 4.17854
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[4] | 2.53661
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[4] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[1] | 2.10636
+CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[4] | CCCCHHHHHHHHHHHHNOOOOOOS/q+3/compound#1/[3] | 0.613815
+CCCCHHHHHHHHOO/q+2/compound#1/[2] | CCCCHHHHHHHHOO/q+2/compound#1/[4] | 4.53049
+CCCCHHHHHHHHOO/q+2/compound#1/[2] | CCCCHHHHHHHHOO/q+2/compound#1/[1] | 2.49034
+CCCCHHHHHHHHOO/q+2/compound#1/[4] | CCCCHHHHHHHHOO/q+2/compound#1/[2] | 2.48068
+CCCCHHHHHHHHOO/q+2/compound#1/[4] | CCCCHHHHHHHHOO/q+2/compound#1/[1] | 4.73909
+CCCCHHHHHHHHOO/q+2/compound#1/[1] | CCCCHHHHHHHHOO/q+2/compound#1/[2] | 4.06267
+CCCCHHHHHHHHOO/q+2/compound#1/[1] | CCCCHHHHHHHHOO/q+2/compound#1/[4] | 2.66931
+CCCHHHHHHHHOO/compound#2/[3] | CCCHHHHHHHHOO/compound#2/[2] | 3.0082
+CCCHHHHHHHHOO/compound#2/[2] | CCCHHHHHHHHOO/compound#2/[3] | 0.715335
+CCHHHHH/q+1/compound#1/[5] | CCHHHHH/q+1/compound#1/[3] | 4.0521
+CCHHHHH/q+1/compound#1/[5] | CCHHHHH/q+1/compound#1/[2] | 4.18365
+CCHHHHH/q+1/compound#1/[3] | CCHHHHH/q+1/compound#1/[5] | 1.06447
+CCHHHHH/q+1/compound#1/[3] | CCHHHHH/q+1/compound#1/[2] | 3.61941
+CCHHHHH/q+1/compound#1/[3] | CCHHHHH/q+1/compound#1/[1] | 2.20105
+CCHHHHH/q+1/compound#1/[3] | CCHHHHH/q+1/compound#1/[4] | 4.53864
+CCHHHHH/q+1/compound#1/[2] | CCHHHHH/q+1/compound#1/[5] | 1.75428
+CCHHHHH/q+1/compound#1/[2] | CCHHHHH/q+1/compound#1/[3] | 1.48597
+CCHHHHH/q+1/compound#1/[2] | CCHHHHH/q+1/compound#1/[1] | 4.93976
+CCHHHHH/q+1/compound#1/[2] | CCHHHHH/q+1/compound#1/[4] | 2.88532
+CCHHHHH/q+1/compound#1/[1] | CCHHHHH/q+1/compound#1/[3] | 3.5973
+CCHHHHH/q+1/compound#1/[1] | CCHHHHH/q+1/compound#1/[2] | 0.633298
+CCHHHHH/q+1/compound#1/[4] | CCHHHHH/q+1/compound#1/[3] | 3.69364
+CCHHHHH/q+1/compound#1/[4] | CCHHHHH/q+1/compound#1/[2] | 1.43161
+CCHHHHHHHHNOOOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[4] | 11.3424
+CCHHHHHHHHNOOOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | 16.1761
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[4] | CCHHHHHHHHNOOOOOS/q+2/compound#2/[1] | 9.06281
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[4] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | 20.1067
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOOOS/q+2/compound#2/[1] | 47.0657
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[4] | 29.798
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[2] | 4.45474
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[3] | 3.22147
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[2] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | 0.543063
+CCHHHHHHHHNOOOOOS/q+2/compound#1/[3] | CCHHHHHHHHNOOOOOS/q+2/compound#1/[1] | 4.62846
+CCHHHHHHHHNOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOS/q+2/compound#1/[3] | 2.79599
+CCHHHHHHHHNOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOS/q+2/compound#1/[2] | 3.30468
+CCHHHHHHHHNOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOS/q+2/compound#1/[5] | 1.48543
+CCHHHHHHHHNOOOS/q+2/compound#1/[1] | CCHHHHHHHHNOOOS/q+2/compound#2/[1] | 10.6997
+CCHHHHHHHHNOOOS/q+2/compound#1/[3] | CCHHHHHHHHNOOOS/q+2/compound#1/[1] | 3.20726
+CCHHHHHHHHNOOOS/q+2/compound#1/[3] | CCHHHHHHHHNOOOS/q+2/compound#1/[5] | 4.92103
+CCHHHHHHHHNOOOS/q+2/compound#1/[2] | CCHHHHHHHHNOOOS/q+2/compound#1/[1] | 2.62904
+CCHHHHHHHHNOOOS/q+2/compound#1/[2] | CCHHHHHHHHNOOOS/q+2/compound#1/[5] | 1.10747
+CCHHHHHHHHNOOOS/q+2/compound#1/[2] | CCHHHHHHHHNOOOS/q+2/compound#2/[1] | 45.8478
+CCHHHHHHHHNOOOS/q+2/compound#1/[5] | CCHHHHHHHHNOOOS/q+2/compound#1/[1] | 0.161517
+CCHHHHHHHHNOOOS/q+2/compound#1/[5] | CCHHHHHHHHNOOOS/q+2/compound#1/[3] | 0.742688
+CCHHHHHHHHNOOOS/q+2/compound#1/[5] | CCHHHHHHHHNOOOS/q+2/compound#1/[2] | 3.15374
+CCHHHHHHHHNOOOS/q+2/compound#1/[5] | CCHHHHHHHHNOOOS/q+2/compound#2/[4] | 10.4163
+CCHHHHHHHHNOOOS/q+2/compound#1/[5] | CCHHHHHHHHNOOOS/q+2/compound#2/[5] | 18.3737
+CCHHHHHHHHNOOOS/q+2/compound#2/[4] | CCHHHHHHHHNOOOS/q+2/compound#1/[5] | 47.3598
+CCHHHHHHHHNOOOS/q+2/compound#2/[4] | CCHHHHHHHHNOOOS/q+2/compound#2/[1] | 1.41702
+CCHHHHHHHHNOOOS/q+2/compound#2/[5] | CCHHHHHHHHNOOOS/q+2/compound#1/[5] | 37.5747
+CCHHHHHHHHNOOOS/q+2/compound#2/[5] | CCHHHHHHHHNOOOS/q+2/compound#2/[2] | 1.29201
+CCHHHHHHHHNOOOS/q+2/compound#2/[5] | CCHHHHHHHHNOOOS/q+2/compound#2/[1] | 0.24752
+CCHHHHHHHHNOOOS/q+2/compound#2/[5] | CCHHHHHHHHNOOOS/q+2/compound#2/[3] | 4.10532
+CCHHHHHHHHNOOOS/q+2/compound#2/[2] | CCHHHHHHHHNOOOS/q+2/compound#2/[5] | 2.80671
+CCHHHHHHHHNOOOS/q+2/compound#2/[2] | CCHHHHHHHHNOOOS/q+2/compound#2/[1] | 1.36601
+CCHHHHHHHHNOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOS/q+2/compound#1/[1] | 49.4579
+CCHHHHHHHHNOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOS/q+2/compound#1/[2] | 38.2428
+CCHHHHHHHHNOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOS/q+2/compound#2/[4] | 0.294164
+CCHHHHHHHHNOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOS/q+2/compound#2/[5] | 4.08627
+CCHHHHHHHHNOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOS/q+2/compound#2/[2] | 0.734259
+CCHHHHHHHHNOOOS/q+2/compound#2/[1] | CCHHHHHHHHNOOOS/q+2/compound#2/[3] | 0.0893575
+CCHHHHHHHHNOOOS/q+2/compound#2/[3] | CCHHHHHHHHNOOOS/q+2/compound#2/[5] | 2.49243
+CCHHHHHHHHNOOOS/q+2/compound#2/[3] | CCHHHHHHHHNOOOS/q+2/compound#2/[1] | 0.0885882
+CCHHHHHHHOOOO/q+1/compound#1/[4] | CCHHHHHHHOOOO/q+1/compound#1/[1] | 3.72341
+CCHHHHHHHOOOO/q+1/compound#1/[4] | CCHHHHHHHOOOO/q+1/compound#1/[3] | 0.654722
+CCHHHHHHHOOOO/q+1/compound#1/[4] | CCHHHHHHHOOOO/q+1/compound#1/[2] | 0.0984179
+CCHHHHHHHOOOO/q+1/compound#1/[1] | CCHHHHHHHOOOO/q+1/compound#1/[4] | 1.68711
+CCHHHHHHHOOOO/q+1/compound#1/[1] | CCHHHHHHHOOOO/q+1/compound#1/[2] | 1.49732
+CCHHHHHHHOOOO/q+1/compound#1/[3] | CCHHHHHHHOOOO/q+1/compound#1/[4] | 2.23459
+CCHHHHHHHOOOO/q+1/compound#1/[2] | CCHHHHHHHOOOO/q+1/compound#1/[4] | 1.72985
+CCHHHHHHHOOOO/q+1/compound#1/[2] | CCHHHHHHHOOOO/q+1/compound#1/[1] | 4.29647
+CCHHHHHHNOOO/q+1/compound#1/[4] | CCHHHHHHNOOO/q+1/compound#1/[3] | 1.59032
+CCHHHHHHNOOO/q+1/compound#1/[3] | CCHHHHHHNOOO/q+1/compound#1/[4] | 2.29733
+CCHHHHHHNOOO/q+1/compound#1/[3] | CCHHHHHHNOOO/q+1/compound#1/[1] | 0.208261
+CCHHHHHHNOOO/q+1/compound#1/[1] | CCHHHHHHNOOO/q+1/compound#1/[3] | 4.47849
+CCHHHHHHNOOS/q+2/compound#2/[1] | CCHHHHHHNOOS/q+2/compound#2/[5] | 3.41904
+CCHHHHHHNOOS/q+2/compound#2/[1] | CCHHHHHHNOOS/q+2/compound#2/[4] | 19.9557
+CCHHHHHHNOOS/q+2/compound#2/[1] | CCHHHHHHNOOS/q+2/compound#2/[2] | 2.11956
+CCHHHHHHNOOS/q+2/compound#2/[1] | CCHHHHHHNOOS/q+2/compound#2/[3] | 48.0924
+CCHHHHHHNOOS/q+2/compound#2/[1] | CCHHHHHHNOOS/q+2/compound#1/[1] | 24.0974
+CCHHHHHHNOOS/q+2/compound#2/[1] | CCHHHHHHNOOS/q+2/compound#1/[4] | 12.8623
+CCHHHHHHNOOS/q+2/compound#2/[5] | CCHHHHHHNOOS/q+2/compound#2/[1] | 1.47478
+CCHHHHHHNOOS/q+2/compound#2/[5] | CCHHHHHHNOOS/q+2/compound#2/[2] | 1.41959
+CCHHHHHHNOOS/q+2/compound#2/[4] | CCHHHHHHNOOS/q+2/compound#2/[1] | 19.8213
+CCHHHHHHNOOS/q+2/compound#2/[4] | CCHHHHHHNOOS/q+2/compound#2/[2] | 2.13416
+CCHHHHHHNOOS/q+2/compound#2/[4] | CCHHHHHHNOOS/q+2/compound#2/[3] | 1.73491
+CCHHHHHHNOOS/q+2/compound#2/[4] | CCHHHHHHNOOS/q+2/compound#1/[1] | 44.0681
+CCHHHHHHNOOS/q+2/compound#2/[2] | CCHHHHHHNOOS/q+2/compound#2/[1] | 0.531329
+CCHHHHHHNOOS/q+2/compound#2/[2] | CCHHHHHHNOOS/q+2/compound#2/[5] | 3.93354
+CCHHHHHHNOOS/q+2/compound#2/[2] | CCHHHHHHNOOS/q+2/compound#2/[4] | 1.56445
+CCHHHHHHNOOS/q+2/compound#2/[2] | CCHHHHHHNOOS/q+2/compound#2/[3] | 1.58116
+CCHHHHHHNOOS/q+2/compound#2/[2] | CCHHHHHHNOOS/q+2/compound#1/[4] | 14.5802
+CCHHHHHHNOOS/q+2/compound#2/[3] | CCHHHHHHNOOS/q+2/compound#2/[1] | 45.6357
+CCHHHHHHNOOS/q+2/compound#2/[3] | CCHHHHHHNOOS/q+2/compound#2/[4] | 4.80455
+CCHHHHHHNOOS/q+2/compound#2/[3] | CCHHHHHHNOOS/q+2/compound#2/[2] | 2.08588
+CCHHHHHHNOOS/q+2/compound#2/[3] | CCHHHHHHNOOS/q+2/compound#1/[2] | 20.7885
+CCHHHHHHNOOS/q+2/compound#1/[1] | CCHHHHHHNOOS/q+2/compound#2/[1] | 36.0054
+CCHHHHHHNOOS/q+2/compound#1/[1] | CCHHHHHHNOOS/q+2/compound#2/[4] | 46.6072
+CCHHHHHHNOOS/q+2/compound#1/[1] | CCHHHHHHNOOS/q+2/compound#1/[2] | 4.28537
+CCHHHHHHNOOS/q+2/compound#1/[1] | CCHHHHHHNOOS/q+2/compound#1/[4] | 4.97819
+CCHHHHHHNOOS/q+2/compound#1/[1] | CCHHHHHHNOOS/q+2/compound#1/[3] | 34.1884
+CCHHHHHHNOOS/q+2/compound#1/[2] | CCHHHHHHNOOS/q+2/compound#2/[3] | 42.6529
+CCHHHHHHNOOS/q+2/compound#1/[2] | CCHHHHHHNOOS/q+2/compound#1/[1] | 4.06444
+CCHHHHHHNOOS/q+2/compound#1/[2] | CCHHHHHHNOOS/q+2/compound#1/[3] | 1.6337
+CCHHHHHHNOOS/q+2/compound#1/[4] | CCHHHHHHNOOS/q+2/compound#2/[1] | 36.5128
+CCHHHHHHNOOS/q+2/compound#1/[4] | CCHHHHHHNOOS/q+2/compound#2/[2] | 41.4689
+CCHHHHHHNOOS/q+2/compound#1/[4] | CCHHHHHHNOOS/q+2/compound#1/[1] | 0.996147
+CCHHHHHHNOOS/q+2/compound#1/[3] | CCHHHHHHNOOS/q+2/compound#1/[1] | 31.175
+CCHHHHHHNOOS/q+2/compound#1/[3] | CCHHHHHHNOOS/q+2/compound#1/[2] | 3.15605
+CCHHHHO/q+1/compound#1/[2] | CCHHHHO/q+1/compound#1/[5] | 1.85957
+CCHHHHO/q+1/compound#1/[2] | CCHHHHO/q+1/compound#1/[1] | 2.40183
+CCHHHHO/q+1/compound#1/[5] | CCHHHHO/q+1/compound#1/[2] | 2.14316
+CCHHHHO/q+1/compound#1/[5] | CCHHHHO/q+1/compound#1/[1] | 4.37352
+CCHHHHO/q+1/compound#1/[1] | CCHHHHO/q+1/compound#1/[2] | 1.8632
+CCHHHHO/q+1/compound#1/[1] | CCHHHHO/q+1/compound#1/[5] | 1.35399
+CCHHHHOO/compound#1/[2] | CCHHHHOO/compound#1/[4] | 1.51271
+CCHHHHOO/compound#1/[2] | CCHHHHOO/compound#1/[1] | 2.89962
+CCHHHHOO/compound#1/[4] | CCHHHHOO/compound#1/[2] | 0.0566878
+CCHHHHOO/compound#1/[4] | CCHHHHOO/compound#1/[1] | 4.76292
+CCHHHHOO/compound#1/[1] | CCHHHHOO/compound#1/[2] | 2.77833
+CCHHHHOO/compound#1/[1] | CCHHHHOO/compound#1/[4] | 1.60495
+CHHHHHOO/q+1/compound#1/[1] | CHHHHHOO/q+1/compound#1/[3] | 1.6996
+CHHHHHOO/q+1/compound#1/[3] | CHHHHHOO/q+1/compound#1/[1] | 4.38327
+CHHHHHOO/q+1/compound#1/[3] | CHHHHHOO/q+1/compound#1/[2] | 4.86369
+CHHHHHOO/q+1/compound#1/[2] | CHHHHHOO/q+1/compound#1/[3] | 3.52081
+HHHHNOOS/q+1/compound#1/[2] | HHHHNOOS/q+1/compound#1/[1] | 0.895443
+HHHHNOOS/q+1/compound#1/[2] | HHHHNOOS/q+1/compound#1/[3] | 2.56192
+HHHHNOOS/q+1/compound#1/[1] | HHHHNOOS/q+1/compound#1/[2] | 1.41073
+HHHHNOOS/q+1/compound#1/[1] | HHHHNOOS/q+1/compound#1/[3] | 2.45224
+HHHHNOOS/q+1/compound#1/[3] | HHHHNOOS/q+1/compound#1/[2] | 1.05539
+HHHHNOOS/q+1/compound#1/[3] | HHHHNOOS/q+1/compound#1/[1] | 4.26108
+HNS/q+1/compound#1/[5] | HNS/q+1/compound#1/[2] | 1.90415
+HNS/q+1/compound#1/[5] | HNS/q+1/compound#1/[1] | 4.94725
+HNS/q+1/compound#1/[5] | HNS/q+1/compound#1/[4] | 4.50905
+HNS/q+1/compound#1/[2] | HNS/q+1/compound#1/[5] | 1.01114
+HNS/q+1/compound#1/[2] | HNS/q+1/compound#1/[1] | 1.92587
+HNS/q+1/compound#1/[1] | HNS/q+1/compound#1/[5] | 2.76577
+HNS/q+1/compound#1/[1] | HNS/q+1/compound#1/[2] | 2.40173
+HNS/q+1/compound#1/[1] | HNS/q+1/compound#1/[4] | 3.01331
+HNS/q+1/compound#1/[4] | HNS/q+1/compound#1/[5] | 1.66502
+HNS/q+1/compound#1/[4] | HNS/q+1/compound#1/[1] | 3.62078
+HOO/compound#1/[5] | HOO/compound#1/[3] | 1.64681
+HOO/compound#1/[5] | HOO/compound#1/[2] | 3.24316
+HOO/compound#1/[3] | HOO/compound#1/[5] | 1.66174
+HOO/compound#1/[3] | HOO/compound#1/[1] | 4.51508
+HOO/compound#1/[1] | HOO/compound#1/[3] | 4.78804
+HOO/compound#1/[1] | HOO/compound#1/[2] | 0.873593
+HOO/compound#1/[2] | HOO/compound#1/[5] | 2.90833
+HOO/compound#1/[2] | HOO/compound#1/[1] | 3.50142
+HOS/compound#1/[5] | HOS/compound#1/[1] | 2.01357
+HOS/compound#1/[5] | HOS/compound#1/[3] | 0.120224
+HOS/compound#1/[5] | HOS/compound#1/[2] | 2.93442
+HOS/compound#1/[5] | HOS/compound#1/[4] | 0.955358
+HOS/compound#1/[1] | HOS/compound#1/[5] | 0.559663
+HOS/compound#1/[1] | HOS/compound#1/[3] | 0.993946
+HOS/compound#1/[1] | HOS/compound#1/[2] | 4.14102
+HOS/compound#1/[1] | HOS/compound#1/[4] | 4.68843
+HOS/compound#1/[3] | HOS/compound#1/[5] | 4.92848
+HOS/compound#1/[3] | HOS/compound#1/[1] | 2.4444
+HOS/compound#1/[2] | HOS/compound#1/[5] | 4.22123
+HOS/compound#1/[2] | HOS/compound#1/[1] | 0.802954
+HOS/compound#1/[2] | HOS/compound#1/[4] | 3.26072
+HOS/compound#1/[4] | HOS/compound#1/[5] | 3.742
+HOS/compound#1/[4] | HOS/compound#1/[1] | 1.7122
+HOS/compound#1/[4] | HOS/compound#1/[2] | 0.0098946
 --------------------------------------------------
 
 ------------------- Hyperedges -------------------
-Reactants: CCHH 2- | Products: C CHH 2- | Barriers: 180.126, 50.3849
-Reactants: CCCHFN 2- CCHHFNO+ | Products: CCCCCHHHFFNNO- | Barriers: 249.98, 55.3169
-Reactants: C- H | Products: CH- | Barriers: 58.3483, 105.298
-Reactants: CCCFN 2- H | Products: CCCHFN 2- | Barriers: 64.3364, 121.651
-Reactants: HH- | Products: H H- | Barriers: 64.8502, 249.454
-Reactants: CCHHFNO+ H | Products: CCHHHFNO+ | Barriers: 153.863, 65.7247
-Reactants: CCHH 2- HH | Products: CCHHHH 2- | Barriers: 65.9687, 108.313
-Reactants: CCCHFN 2- CH- | Products: CCCCHHFN 3- | Barriers: 73.0427, 195.01
-Reactants: CCCCHHHFFNNO | Products: C CCCHHHFFNNO | Barriers: 87.2391, 209.362
-Reactants: CCHHHFNO+ | Products: CCHHHFN O+ | Barriers: 105.261, 101.695
-Reactants: CCHH 2- | Products: CC HH 2- | Barriers: 106.701, 122.886
-Reactants: CCHHHH 2- | Products: CCHH- HH- | Barriers: 106.785, 235.225
-Reactants: H H | Products: HH | Barriers: 112.105, 231.562
-Reactants: CCHH 2- CCHHFNO+ | Products: CCCCHHHHFNO- | Barriers: 120.093, 190.813
-Reactants: CH- | Products: C H- | Barriers: 165.303, 170.115
-Reactants: CCCCHHFN 3- H | Products: CCCCHHHFN 3- | Barriers: 202.159, 223.321
-Reactants: CCCCCHHHFFNNO- | Products: C- CCCCHHHFFNNO | Barriers: 205.622, 207.267
-Reactants: C- CCHH 2- | Products: CCCHH 3- | Barriers: 229.078, 216.101
-Reactants: CH- CH- | Products: CCHH 2- | Barriers: 216.768, 225.835
+Reactants: HHNOS+ | Products: HN+ HOS | Barriers: 68.0569 78.1886
+Reactants: HHNOS+ | Products: HHS+ NO | Barriers: 74.0725 238.266
+Reactants: CCHHHHO+ CCHHHHO+ | Products: CCCCHHHHHHHHOO 2+ | Barriers: 247.59 75.3319
+Reactants: CCHHHHHHNOOS 2+ HHO | Products: CCHHHHHHHHNOOOS 2+ | Barriers: 190.057 84.9437
+Reactants: CCHHHHHHHHNOOOS 2+ OO | Products: CCHHHHHHHHNOOOOOS 2+ | Barriers: 212.084 92.5788
+Reactants: HHNS 2+ | Products: H+ HNS+ | Barriers: 99.6717 236.959
+Reactants: CCHHHHHHNOOS 2+ | Products: CCHHHHOO HHNS 2+ | Barriers: 165.413 107.264
+Reactants: HHS+ | Products: H+ HS | Barriers: 109.439 194.777
+Reactants: CCHHHHO+ HHNOS+ | Products: CCHHHHHHNOOS 2+ | Barriers: 115.694 230.64
+Reactants: CCHHHHO+ HHO | Products: CCHHHHHHOO+ | Barriers: 115.872 116.47
+Reactants: HHS+ | Products: HH S+ | Barriers: 117.141 160.213
+Reactants: HOO | Products: H OO | Barriers: 134.877 187.802
+Reactants: CCHHHHHHHHNOOOOOS 2+ CCHHHHO+ | Products: CCCCHHHHHHHHHHHHNOOOOOOS 3+ | Barriers: 138.042 193.892
+Reactants: CCCCHHHHHHHHOO 2+ | Products: CCCHHH+ CHHHHHOO+ | Barriers: 151.202 228.572
+Reactants: CCCCHHHHHHHHOO 2+ | Products: C 2+ CCCHHHHHHHHOO | Barriers: 153.041 184.685
+Reactants: OO | Products: O O | Barriers: 166.333 179.726
+Reactants: CCHHHHHHOO+ HOO | Products: CCHHHHHHHOOOO+ | Barriers: 182.78 228.576
+Reactants: CCCCHHHHHHHHHHHHNOOOOOOS 3+ CCHHHHHHNOOO+ | Products: CCCCCCHHHHHHHHHHHHHHHHHHNNOOOOOOOOOS 4+ | Barriers: 231.546 197.746
+Reactants: HHNOS+ HHO | Products: HHHHNOOS+ | Barriers: 223.636 234.921
+Reactants: CCHHHHHHOO+ | Products: CCHHHHH+ HOO | Barriers: 241.522 230.603
+Reactants: CCHHHHHHOO+ NO | Products: CCHHHHHHNOOO+ | Barriers: 241.752 233.974

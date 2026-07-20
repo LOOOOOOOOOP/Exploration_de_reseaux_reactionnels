@@ -1,13 +1,16 @@
 #include "output_results.h"
+
 #include <ctime>
 
 using namespace std;
 
-void output_parameters(Parameters param, string filename)
+
+void output_parameters(const Parameters& param, const string& filename)
 {
     ofstream output_file;
     output_file.open(filename,std::ios_base::app);
 
+    // Header
     for (int i = 0; i < 19; i++)
         output_file << "-";
     output_file << " Parameters ";
@@ -15,9 +18,10 @@ void output_parameters(Parameters param, string filename)
         output_file << "-";
     output_file << endl;
 
+    // Paramètres
     output_file << "Seed: " << param.seed << endl;
     output_file << "Possible atoms: ";
-    for (set<Atom>::iterator it = param.possible_atoms.begin(); it != param.possible_atoms.end(); it++)
+    for (set<Atom>::const_iterator it = param.possible_atoms.begin(); it != param.possible_atoms.end(); it++)
     {
         output_file << it->symbol << " ";
     }
@@ -39,6 +43,7 @@ void output_parameters(Parameters param, string filename)
     output_file << "Percentage of splittings per round: " << param.percentage_of_splittings_per_round << endl;
     output_file << "Minimum number of splittings per round: " << param.minimum_number_of_splittings_per_round << endl;
 
+    // Séparateur
     for (int i = 0; i < 50; i++)
         output_file << "-";
     output_file << endl << endl;
@@ -46,11 +51,12 @@ void output_parameters(Parameters param, string filename)
 
 /////////////////////////////////////////////////////////////////////
 
-void output_systems(Network N, string filename)
+void output_systems(Network& N, const string& filename)
 {
     ofstream output_file;
     output_file.open(filename,std::ios_base::app);
 
+    // Header
     for (int i = 0; i < 20; i++)
         output_file << "-";
     output_file << " Systems ";
@@ -58,19 +64,21 @@ void output_systems(Network N, string filename)
         output_file << "-";
     output_file << endl;
 
-    for (map<const string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
+    // Liste des systèmes, regroupés en classes et en composés
+    for (map<const string,Class>::const_iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
         output_file<< "Class: " << it->second.class_ID.substr(0,it->second.class_ID.find(" | ")) << endl;
-        for (map<const string,Compound>::iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
+        for (map<const string,Compound>::const_iterator it2 = it->second.class_compounds.begin(); it2 != it->second.class_compounds.end(); it2++)
         {
             size_t number_of_conformers = it2->second.compound_systems.size();
-            output_file << "  Compound: " << it2->second.InChI;
+            output_file << "  Compound: " << it2->second.compound_ID;
             output_file << endl;
-            for (map<const string,System>::iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
+            for (map<const string,System>::const_iterator it3 = it2->second.compound_systems.begin(); it3 != it2->second.compound_systems.end(); it3++)
             {
                 output_file << "    " << it3->second.system_ID << endl;
             }
         }
+        // Séparateur
         for (int i = 0; i < 50; i++)
             output_file << "-";
         output_file << endl;
@@ -80,11 +88,12 @@ void output_systems(Network N, string filename)
 
 /////////////////////////////////////////////////////////////////////
 
-void output_edges(Network N, string filename)
+void output_edges(Network& N, const string& filename)
 {
     ofstream output_file;
     output_file.open(filename,std::ios_base::app);
 
+    // Header
     for (int i = 0; i < 21; i++)
         output_file << "-";
     output_file << " Edges ";
@@ -92,6 +101,7 @@ void output_edges(Network N, string filename)
         output_file << "-";
     output_file << endl;
 
+    // Liste des arêtes, format "R | P | RP_barrier"
     for (map<const string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
         Class& C = it->second;
@@ -128,11 +138,13 @@ void output_edges(Network N, string filename)
                         }
                         it2++;
                     }
+                    // Output de l'arête
                     output_file << R->system_ID << " | " << P->system_ID << " | " << C.edges[i][j] << endl;
                 }
             }
         }
     }
+    // Séparateur
     for (int i = 0; i < 50; i++)
         output_file << "-";
     output_file << endl << endl;
@@ -140,11 +152,12 @@ void output_edges(Network N, string filename)
 
 /////////////////////////////////////////////////////////////////////
 
-void output_hyperedges(Network N, string filename)
+void output_hyperedges(Network& N, const string& filename)
 {
     ofstream output_file;
     output_file.open(filename,std::ios_base::app);
 
+    // Header
     for (int i = 0; i < 19; i++)
         output_file << "-";
     output_file << " Hyperedges ";
@@ -152,25 +165,26 @@ void output_hyperedges(Network N, string filename)
         output_file << "-";
     output_file << endl;
 
-    for (set<Hyperedge>::iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
+    // Liste des hyperarêtes, format "Reactants: R1 R2 | Products: P1 P2 | Barriers: RP_barrier PR_barrier"
+    for (set<Hyperedge>::const_iterator it = N.hyperedges.begin(); it != N.hyperedges.end(); it++)
     {
         output_file << "Reactants: ";
-        for (multiset<System>::iterator it2 = it->reactants.begin(); it2 != it->reactants.end(); it2++)
+        for (multiset<System>::const_iterator it2 = it->reactants.begin(); it2 != it->reactants.end(); it2++)
         {
             output_file << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }
         output_file << "| Products: ";
-        for (multiset<System>::iterator it2 = it->products.begin(); it2 != it->products.end(); it2++)
+        for (multiset<System>::const_iterator it2 = it->products.begin(); it2 != it->products.end(); it2++)
         {
             output_file << calculate_class_ID(*it2).substr(0,calculate_class_ID(*it2).find(" | ")) << " ";
         }
-        output_file << "| Barriers: " << it->barrier.first << ", " << it->barrier.second << endl;
+        output_file << "| Barriers: " << it->barrier.first << " " << it->barrier.second << endl;
     }
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void output_network(Network N, string filename)
+void output_network(Network& N, const string& filename)
 {
     output_systems(N,filename);
     output_edges(N,filename);
@@ -179,7 +193,7 @@ void output_network(Network N, string filename)
 
 /////////////////////////////////////////////////////////////////////
 
-void output_all(Parameters param, Network N, string name_of_created_file)
+void output_all(const Parameters& param, Network& N, const string& name_of_created_file)
 {
     string filename = "./Output/" + name_of_created_file + ".txt";
 
@@ -192,7 +206,7 @@ void output_all(Parameters param, Network N, string name_of_created_file)
 
     output_file << N.number_of_systems << " systems discovered (";
     size_t number_of_compounds = 0;
-    for (map<string,Class>::iterator it = N.classes.begin(); it != N.classes.end(); it++)
+    for (map<string,Class>::const_iterator it = N.classes.begin(); it != N.classes.end(); it++)
     {
         number_of_compounds += it->second.class_compounds.size();
     }

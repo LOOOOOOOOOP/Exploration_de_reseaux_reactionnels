@@ -2,14 +2,15 @@
 #define output_results_h
 
 #include "parameters.h"
-#include "../network.h"
 #include "../calculate_IDs.h"
+#include "../network.h"
 
-void output_parameters(Parameters,std::string);
-void output_systems(Network,std::string);
-void output_edges(Network,std::string);
-void output_hyperedges(Network,std::string);
-void output_network(Network,std::string);
-void output_all(Parameters,Network,std::string);
+
+void output_parameters(const Parameters&,const std::string&);
+void output_systems(Network&,const std::string&);
+void output_edges(Network&,const std::string&);
+void output_hyperedges(Network&,const std::string&);
+void output_network(Network&,const std::string&);
+void output_all(const Parameters&,Network&,const std::string&);    // crée un fichier dans ./Output
 
 #endif
