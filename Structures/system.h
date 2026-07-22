@@ -40,7 +40,7 @@ class System
 {
     public:
     const std::string system_ID;    // Format "liste_des_atomes/q±x/compound#Y/[Z]"
-                                    // où   liste_des_atomes est la concaténation des symboles des atomes tels qu'ils sont listés dans le multiset
+                                    // où   liste_des_atomes est la concaténation des symboles des atomes selon la notation de Hill
                                     //      ±x est la charge du système (si x=0, il n'y a pas de "/q±x")
                                     //      Y est le numéro du composé (à partir de 1)
                                     //      Z est le numéro du conformère à l'intérieur du composé (à partir de 1)

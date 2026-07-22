@@ -7,7 +7,6 @@
 #include <deque>
 #include <map>
 #include <set>
-#include <unordered_set>
 
 
 class Network
@@ -32,7 +31,7 @@ class Network
     void simulate(std::vector<float>);  // Paramètre: vecteur des concentrations des systèmes initiaux, dans l'ordre dans lequel ils ont été donnés
                                         // Met à jour la fonction de concentration de chaque système et le flux de chaque arête et hyperarête
     void update_systems_concentration_function(std::vector<float>);
-    void update_edges_flux();
+    void update_edges_and_hyperedges_flux();
 };
 
 #endif

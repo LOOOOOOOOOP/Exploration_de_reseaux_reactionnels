@@ -169,7 +169,7 @@ const size_t Parameters::size_of_compound(const multiset<Atom>& atoms) const
 
 /////////////////////////////////////////////////////////////////////
 
-const size_t Parameters::number_of_compound_neighbours_distribution(const System& S) const
+const size_t Parameters::number_of_compound_neighbours_generator(const System& S) const
 {
     static mt19937 generator(seed);
     size_t compound_size = size_of_compound(S.atoms);
@@ -194,7 +194,7 @@ const size_t Parameters::size_of_class(const multiset<Atom>& atoms) const
 
 /////////////////////////////////////////////////////////////////////
 
-const size_t Parameters::number_of_class_neighbours_distribution(const System& S) const
+const size_t Parameters::number_of_class_neighbours_generator(const System& S) const
 {
     multiset<Atom> atoms = S.atoms;
     size_t class_size = size_of_class(atoms);

@@ -22,7 +22,7 @@ class Class
     std::vector<std::vector<float>> edges_flux;     // Flux des arêtes de la matrice d'adjacence. Initialisé à -1
 
     const std::string class_ID; // Format "liste_des_atomes x±"
-                                // où   "liste_des_atomes" est la concaténation des symboles des atomes tels qu'il sont ordonnés dans le multiset
+                                // où   "liste_des_atomes" est la concaténation des symboles des atomes selon la notation de Hill
                                 //      " x±" est   "" si la charge est 0
                                 //                  "+" si la charge est +1
                                 //                  "-" si la charge est -1

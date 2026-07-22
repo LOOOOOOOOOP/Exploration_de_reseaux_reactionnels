@@ -276,7 +276,7 @@ void generate_compound_neighbourhood(const Parameters& param, Network& N, const 
 
     N.compound_unexplored_systems.pop_back();
 
-    size_t number_of_neighbours = param.number_of_compound_neighbours_distribution(S_in_network);
+    size_t number_of_neighbours = param.number_of_compound_neighbours_generator(S_in_network);
     for (size_t i = 0; i < number_of_neighbours; i ++)
         generate_compound_neighbour(param,N,C,S_in_network);
 
@@ -312,7 +312,7 @@ void generate_class_neighbourhood(const Parameters& param, Network& N, const Sys
 
     N.class_unexplored_systems.pop_back();
 
-    size_t number_of_neighbours = param.number_of_class_neighbours_distribution(S_in_network);
+    size_t number_of_neighbours = param.number_of_class_neighbours_generator(S_in_network);
     for (size_t i = 0; i < number_of_neighbours; i ++)
         generate_class_neighbour(param,N,C,S_in_network);
 

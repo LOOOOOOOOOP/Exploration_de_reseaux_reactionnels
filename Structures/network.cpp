@@ -73,7 +73,7 @@ void Network::add_system_in_network_from_hyperedge(const multiset<System>& R, mu
 void Network::simulate(vector<float> initial_concentrations)
 {
     update_systems_concentration_function(initial_concentrations);
-    update_edges_flux();
+    update_edges_and_hyperedges_flux();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ void Network::update_systems_concentration_function(vector<float> initial_concen
 
 /////////////////////////////////////////////////////////////////////
 
-void Network::update_edges_flux()
+void Network::update_edges_and_hyperedges_flux()
 {
     return;
 }

@@ -41,9 +41,9 @@ class Parameters
                                                                                         // Le nombre d'électrons peut ensuite être déduit
 
     const size_t size_of_compound(const std::multiset<Atom>&) const;                    // Sert à attribuer un numéro de conformère lors de la génération d'un système
-    const size_t number_of_compound_neighbours_distribution(const System&) const;       // Retourne le nombre de voisins intra-composé d'un système lors de l'ajout de ses voisins
+    const size_t number_of_compound_neighbours_generator(const System&) const;       // Retourne le nombre de voisins intra-composé d'un système lors de l'ajout de ses voisins
     const size_t size_of_class(const std::multiset<Atom>&) const;                       // Sert à attribuer un numéro de composé lors de la génération d'un système
-    const size_t number_of_class_neighbours_distribution(const System&) const;          // Retourne le nombre de voisins extra-composé d'un système lors de l'ajout de ses voisins
+    const size_t number_of_class_neighbours_generator(const System&) const;          // Retourne le nombre de voisins extra-composé d'un système lors de l'ajout de ses voisins
 
     const float generate_barrier_between_compound_neighbours(const System&,const System&) const;             // Génère une valeur de barrière entre deux voisins intra-composé
     const float generate_barrier_between_class_neighbours(const System&,const System&) const;                // Génère une valeur de barrière entre deux voisins extra-composé

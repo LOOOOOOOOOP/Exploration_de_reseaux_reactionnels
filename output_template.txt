@@ -1,0 +1,41 @@
+Date and time
+
+X systems discovered (X compounds)
+
+------------------- Parameters -------------------
+Seed: X
+Possible atoms: X X X
+Min number of atoms in initial systems: X
+Max number of atoms in initial systems: X
+Number of initial systems: X
+Initial systems are from different compounds: Yes/No
+Limit number of conformers to 5: Yes/No
+Number of generation rounds: X
+Percentage of pairs per round: X
+Minimum number of pairs per round: X
+Percentage of splittings per round: X
+Minimum number of splittings per round: X
+--------------------------------------------------
+
+-------------------- Systems ---------------------
+Class: X
+  Compound: X/compound#X
+    X/compound#X/[X]
+  Compound: X/compound#X
+    X/compound#X/[X]
+    X/compound#X/[X]
+--------------------------------------------------
+Class: X
+  Compound: X/compound#X
+    X/compound#X/[X]
+--------------------------------------------------
+
+--------------------- Edges ----------------------
+R/compound#X/[X] | P/compound#X/[X] | RP_barrier
+R/compound#X/[X] | P/compound#X/[X] | RP_barrier
+--------------------------------------------------
+
+------------------- Hyperedges -------------------
+Reactants: R1 R2 | Products: P | Barriers: RP_barrier PR_barrier
+Reactants: R | Products: P1 P2 | Barriers: RP_barrier PR_barrier
+Reactants: R | Products: P1 P2 | Barriers: RP_barrier PR_barrier
