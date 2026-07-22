@@ -1,7 +1,7 @@
 #ifndef explore_synthetic_network_h
 #define explore_synthetic_network_h
 
-#include "../network.h"
+#include "../Structures/network.h"
 
 
 void explore(Network&,const Network&);

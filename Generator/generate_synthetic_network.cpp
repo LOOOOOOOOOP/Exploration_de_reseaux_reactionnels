@@ -1,5 +1,5 @@
 #include "generate_synthetic_network.h"
-#include "print_tests.h"
+#include "../Testing/print_tests.h"
 
 #include <cstdlib>
 #include <deque>

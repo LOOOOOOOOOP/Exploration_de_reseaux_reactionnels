@@ -2,9 +2,9 @@
 #define generate_synthetic_network_h
 
 #include "parameters.h"
-#include "../calculate_IDs.h"
-#include "../network.h"
-#include "../system.h"
+#include "../Structures/calculate_IDs.h"
+#include "../Structures/network.h"
+#include "../Structures/system.h"
 
 
 const std::multiset<Atom> generate_atoms(const Parameters&);

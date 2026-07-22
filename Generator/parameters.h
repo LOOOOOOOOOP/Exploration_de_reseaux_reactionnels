@@ -1,7 +1,7 @@
 #ifndef parameters_h
 #define parameters_h
 
-#include "../system.h"
+#include "../Structures/system.h"
 
 #include <bits/stdc++.h>
 #include <cstddef>

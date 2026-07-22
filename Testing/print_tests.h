@@ -1,8 +1,8 @@
 #ifndef print_tests_h
 #define print_tests_h
 
-#include "../class.h"
-#include "../network.h"
+#include "../Structures/class.h"
+#include "../Structures/network.h"
 
 
 void print_system(const System&);

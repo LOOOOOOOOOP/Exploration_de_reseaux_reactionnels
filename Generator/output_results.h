@@ -2,8 +2,8 @@
 #define output_results_h
 
 #include "parameters.h"
-#include "../calculate_IDs.h"
-#include "../network.h"
+#include "../Structures/calculate_IDs.h"
+#include "../Structures/network.h"
 
 
 void output_parameters(const Parameters&,const std::string&);

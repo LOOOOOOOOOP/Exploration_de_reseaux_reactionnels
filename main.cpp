@@ -1,8 +1,8 @@
-#include "calculate_IDs.h"
-#include "network.h"
-#include "Testing/generate_synthetic_network.h"
-#include "Testing/output_results.h"
-#include "Testing/parameters.h"
+#include "Structures/calculate_IDs.h"
+#include "Structures/network.h"
+#include "Generator/generate_synthetic_network.h"
+#include "Generator/output_results.h"
+#include "Generator/parameters.h"
 #include "Testing/print_tests.h"
 
 #include <iostream>

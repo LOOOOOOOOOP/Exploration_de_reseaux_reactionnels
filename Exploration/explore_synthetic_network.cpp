@@ -1,5 +1,5 @@
 #include "explore_synthetic_network.h"
-#include "../calculate_IDs.h"
+#include "../Structures/calculate_IDs.h"
 
 using namespace std;
 
